@@ -1,4 +1,4 @@
-<h1> Contact Partial </h1>
+<h3> Contact Partial </h3>
 
 <%= form_for :contact, url: contacts_path do |f| %>
 <%= f.label :last_name %>
@@ -24,13 +24,62 @@
 <%= f.label(:email_secondary) %>
 <%= f.email_field(:email_secondary) %>
 
+<%= f.label(:work_phone) %>
+<%= f.phone_field(:work_phone) %>
+
 <%= f.label :notes %>
 <%= f.text_area :notes %>
 
 <%= f.label :subject_area %>
 <%= f.select(:subject_area, ['Not Specified','Administration','English','Foreign Language','Generalist','History/Social Studies','Humanities','Math','Music','Performing Arts','Physical Education','Science','Technology','Theology','Visual Arts','Other']) %>
 
+<%= f.label :other_subject %>
+<%= f.text_field :other_subject %>
 
+<div>
+<h3> Teaches: </h3>
+<%= f.label :gPK %>
+<%= f.check_box :gPK, checked_value: 'Yes', unchecked_value: 'No' %>
+
+<%= f.label :gK %>
+<%= f.check_box :gK %>
+
+<%= f.label :g01 %>
+<%= f.check_box :g01 %>
+
+<%= f.label :g02 %>
+<%= f.check_box :g02 %>
+
+<%= f.label :g03 %>
+<%= f.check_box :g03 %>
+
+<%= f.label :g04 %>
+<%= f.check_box :g04 %>
+
+<%= f.label :g05 %>
+<%= f.check_box :g05 %>
+
+<%= f.label :g06 %>
+<%= f.check_box :g06 %>
+
+<%= f.label :g07 %>
+<%= f.check_box :g07 %>
+
+<%= f.label :g08 %>
+<%= f.check_box :g08 %>
+
+<%= f.label :g09 %>
+<%= f.check_box :g09 %>
+
+<%= f.label :g10 %>
+<%= f.check_box :g10 %>
+
+<%= f.label :g11 %>
+<%= f.check_box :g11 %>
+
+<%= f.label :g12 %>
+<%= f.check_box :g12 %>
+</div>
 
 <%= f.submit "Create" %>
 <% end %>

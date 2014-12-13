@@ -38,20 +38,20 @@ class CreateDatabase < ActiveRecord::Migration
       t.text      "notes"
       t.string    "subject_area",    limit: 22,  default: "Not Specified"
       t.string    "other_subject",   limit: 60
-      t.string    "gPK",             limit: 3,   default: "No"
-      t.string    "gK",              limit: 3,   default: "No"
-      t.string    "g01",             limit: 3,   default: "No"
-      t.string    "g02",             limit: 3,   default: "No"
-      t.string    "g03",             limit: 3,   default: "No"
-      t.string    "g04",             limit: 3,   default: "No"
-      t.string    "g05",             limit: 3,   default: "No"
-      t.string    "g06",             limit: 3,   default: "No"
-      t.string    "g07",             limit: 3,   default: "No"
-      t.string    "g08",             limit: 3,   default: "No"
-      t.string    "g09",             limit: 3,   default: "No"
-      t.string    "g10",             limit: 3,   default: "No"
-      t.string    "g11",             limit: 3,   default: "No"
-      t.string    "g12",             limit: 3,   default: "No"
+      t.boolean   "gPK",                         default: false
+      t.boolean   "gK",                          default: false
+      t.boolean   "g01",                         default: false
+      t.boolean   "g02",                         default: false
+      t.boolean   "g03",                         default: false
+      t.boolean   "g04",                         default: false
+      t.boolean   "g05",                         default: false
+      t.boolean   "g06",                         default: false
+      t.boolean   "g07",                         default: false
+      t.boolean   "g08",                         default: false
+      t.boolean   "g09",                         default: false
+      t.boolean   "g10",                         default: false
+      t.boolean   "g11",                         default: false
+      t.boolean   "g12",                         default: false
       t.string    "status",          limit: 8,   default: "Active"
       t.string    "subscribed",      limit: 3,   default: "Yes"
       t.timestamps
