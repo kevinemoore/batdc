@@ -1,15 +1,22 @@
 class ContactsController < ApplicationController
+  load_resource
   
-  #load_resource
-
-  def new
-
+  def index
+    @contacts = Contact.paginate(:page => params[:page], :per_page => 25)
   end
 
   def create
     @contact = Contact.new(contact_params)
     @contact.save
     redirect_to @contact
+  end
+
+  def update
+    if @contact.update(contact_params)
+      redirect_to @contact
+    else
+      render 'edit'
+    end
   end
 
   private

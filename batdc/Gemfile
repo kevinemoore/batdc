@@ -38,4 +38,8 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# Control user permissions
 gem 'cancan'
+
+# Paginated view for contacts, etc.
+gem 'will_paginate' 
