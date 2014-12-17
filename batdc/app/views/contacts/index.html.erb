@@ -1,13 +1,20 @@
-<h1> Contacts Index</h1>
+<h2> Contacts</h2>
 
 <table>
-<th> Contacts </th>
-<% @contacts.each do |c| %>
 <tr>
-<td><%= c.last %></td>
-<td><%= c.first %></td>
+<th>Name</th>
+<th>Email</th>
+<th>Role</th>
+<th>School</th>
+</tr>
+<% @contacts.each do |c| %>
+<% name = "#{c.last}, #{c.first}" %>
+<tr>
+<td><%= link_to name, c %></td>
 <td><%= c.email_primary %></td>
+<td><%= c.role %></td>
 <td><%= c.school.name %></td>
+<td><%= button_to 'Edit', edit_contact_path(c), method: :get %>
 </tr>
 <% end %>
 </table>

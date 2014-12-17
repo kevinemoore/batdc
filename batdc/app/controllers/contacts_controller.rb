@@ -2,7 +2,8 @@ class ContactsController < ApplicationController
   load_resource
   
   def index
-    @contacts = Contact.paginate(:page => params[:page], :per_page => 25)
+    @contacts = Contact.order(:last, :first).paginate(:page => params[:page], :per_page =>
+  25)
   end
 
   def create
