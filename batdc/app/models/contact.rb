@@ -3,6 +3,26 @@
 class Contact < ActiveRecord::Base
   belongs_to :school
 
+  def grade_field_label(f)
+    labels = {}
+    labels[:gPK] = "Pre K"
+    labels[:gK] = "Kindergarden"
+    labels[:g01] = "Grade 1"
+    labels[:g02] = "Grade 2"
+    labels[:g03] = "Grade 3"
+    labels[:g04] = "Grade 4"
+    labels[:g05] = "Grade 5"
+    labels[:g06] = "Grade 6"
+    labels[:g07] = "Grade 7"
+    labels[:g08] = "Grade 8"
+    labels[:g09] = "Grade 9"
+    labels[:g10] = "Grade 10"
+    labels[:g11] = "Grade 11"
+    labels[:g12] = "Grade 12"
+
+    labels[f]
+  end
+
   def grades_taught
     grades = []
     grades << "Pre K" if self.gPK
