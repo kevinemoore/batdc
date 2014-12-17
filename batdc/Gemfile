@@ -40,6 +40,7 @@ gem 'spring',        group: :development
 
 # Control user permissions
 gem 'cancan'
+gem 'devise'
 
 # Paginated view for contacts, etc.
 gem 'will_paginate' 
