@@ -1,8 +1,11 @@
-<h1>Edit Contact</h1>
+<h2>Edit Contact</h2>
 
 <%= form_for @contact, method: :patch do |f| %>
-<%= render 'contact', :f => f%>
-<%= f.submit "Apply" %>
+    <%= render 'contact', :f => f%>
+    <div>
+        <%= f.submit "Apply" %>
+        <%= button_tag "Reset", :type => 'reset' %>
+        <%= button_to "Cancel", @contact %>
+    </div>
 <% end %>
-<%= link_to 'Show', @contact %>
-<%= link_to 'Back', contacts_path %>
+

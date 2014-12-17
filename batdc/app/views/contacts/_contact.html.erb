@@ -1,43 +1,63 @@
 
+<div>
 <%= f.label :last_name %>
 <%= f.text_field :last %>
+
 <%= f.label :first_name %>
 <%= f.text_field :first %>
+</div>
 
+<div>
 <%= f.label(:role) %>
 <%= f.select(:role, ['Not Specified','Academic Dean','Assistant Head of School','Athletic Director','Dean of Faculty','Dean of Students/Student Life','Dean of Community/Inclusion/Diversity','Director of Admissions','Director of Alumni Relations','Director of Communications','Director of Development/Advancement','Director of Teaching and Learning','Director of Technology/Innovation','Head of School','Lower School Division Head','Middle School Division Head','Upper School Division Head','Administrative Assistant','Administrative Assistant to the Head','Admissions Associate','After School and Summer Programs Coordinator','Alumni Relations Associate','Athletic Department Associate','Business Manager','Business Associate','Class/Grade Dean','College Counselor','Communications Associate','Counselor/Psychologist','Development/Advancement Associate','Health/Wellness Coordinator','Learning Specialist','Librarian','Registrar','Service Learning/Community Service Coordinator','Technology/Media Staff','Teacher','Department Chair and Teacher','Teaching Assistant/Intern']) %>
+</div>
 
+<div>
 <%= f.label :title %>
 <%= f.text_field :title %>
+</div>
 
+<div>
 <%= f.label :school %>
 <%= collection_select(:contact, :school_id, School.all, :id, :name) %>
+</div>
 
+<div>
 <%= f.label(:eventbrite_id) %>
 <%= f.number_field(:eventbrite_id) %>
+</div>
 
+<div>
 <%= f.label(:email_primary) %>
 <%= f.email_field(:email_primary) %>
+</div>
 
+<div>
 <%= f.label(:email_secondary) %>
 <%= f.email_field(:email_secondary) %>
+</div>
 
+<div>
 <%= f.label(:work_phone) %>
 <%= f.phone_field(:work_phone) %>
+</div>
 
+<div>
 <%= f.label :notes %>
 <%= f.text_area :notes %>
+</div>
 
+<div>
 <%= f.label :subject_area %>
 <%= f.select(:subject_area, ['Not Specified','Administration','English','Foreign Language','Generalist','History/Social Studies','Humanities','Math','Music','Performing Arts','Physical Education','Science','Technology','Theology','Visual Arts','Other']) %>
-
 <%= f.label :other_subject %>
 <%= f.text_field :other_subject %>
+</div>
 
 <div>
 <h3> Teaches: </h3>
 <%= f.label :gPK %>
-<%= f.check_box :gPK, checked_value: 'Yes', unchecked_value: 'No' %>
+<%= f.check_box :gPK %>
 
 <%= f.label :gK %>
 <%= f.check_box :gK %>
