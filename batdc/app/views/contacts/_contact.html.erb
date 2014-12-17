@@ -55,46 +55,14 @@
 </div>
 
 <div>
-<h3> Teaches: </h3>
-<%= f.label :gPK %>
-<%= f.check_box :gPK %>
-
-<%= f.label :gK %>
-<%= f.check_box :gK %>
-
-<%= f.label :g01 %>
-<%= f.check_box :g01 %>
-
-<%= f.label :g02 %>
-<%= f.check_box :g02 %>
-
-<%= f.label :g03 %>
-<%= f.check_box :g03 %>
-
-<%= f.label :g04 %>
-<%= f.check_box :g04 %>
-
-<%= f.label :g05 %>
-<%= f.check_box :g05 %>
-
-<%= f.label :g06 %>
-<%= f.check_box :g06 %>
-
-<%= f.label :g07 %>
-<%= f.check_box :g07 %>
-
-<%= f.label :g08 %>
-<%= f.check_box :g08 %>
-
-<%= f.label :g09 %>
-<%= f.check_box :g09 %>
-
-<%= f.label :g10 %>
-<%= f.check_box :g10 %>
-
-<%= f.label :g11 %>
-<%= f.check_box :g11 %>
-
-<%= f.label :g12 %>
-<%= f.check_box :g12 %>
+    <table>
+        <tr><th> Teaches </th></tr>    
+        <% all_grades = [:gPK, :gK, :g01, :g02, :g03, :g04, :g05, :g06, :g07, :g08, :g09, :g10, :g11, :g12] %>
+        <% all_grades.each do |g| %>
+            <tr>
+                <td><%=@contact.grade_field_label(g)%></td>
+                <td><%= f.check_box g %></td>
+            </tr>
+        <% end %>
+    </table>    
 </div>
