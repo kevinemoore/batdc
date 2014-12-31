@@ -1,0 +1,71 @@
+
+<div>
+<%= f.label :name %>
+<%= f.text_field :name %>
+
+<%= f.label :official_name %>
+<%= f.text_field :official_name %>
+</div>
+
+<div>
+<%= f.label(:website) %>
+<%= f.text_field :website %>
+</div>
+
+<div>
+<%= f.label :office_phone %>
+<%= f.phone_field :office_phone %>
+</div>
+
+<div>
+<%= f.label :fax %>
+<%= f.phone_field :fax %>
+</div>
+
+<div>
+<%= f.label :address1 %>
+<%= f.text_field :address1 %>
+</div>
+
+<div>
+<%= f.label :address2 %>
+<%= f.text_field :address2 %>
+</div>
+
+<div>
+<%= f.label :city %>
+<%= f.text_field :city %>
+</div>
+
+<div>
+<%= f.label :state %>
+<%= f.text_field :state %>
+</div>
+
+<div>
+<%= f.label :zip %>
+<%= f.text_field :zip %>
+</div>
+
+<div>
+<%= f.label :notes %>
+<%= f.text_area :notes %>
+</div>
+
+<div>
+<%= f.label :region %>
+<%= f.select(:region, ['Bay Area','Southern California','Other']) %>
+</div>
+
+<div>
+    <table>
+        <tr><th> Grades </th></tr>    
+        <% categories = [:prek, :elementary, :middle, :highschool] %>
+        <% categories.each do |c| %>
+            <tr>
+                <td><%= c %></td>
+                <td><%= f.check_box c %></td>
+            </tr>
+        <% end %>
+    </table>    
+</div>
