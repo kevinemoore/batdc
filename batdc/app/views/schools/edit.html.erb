@@ -1,0 +1,11 @@
+<h2>Edit School</h2>
+
+<%= form_for @school, method: :patch do |f| %>
+    <%= render 'school', :f => f%>
+    <div>
+        <%= f.submit "Apply" %>
+        <%= button_tag "Reset", :type => 'reset' %>
+        <%= button_to "Cancel", @school %>
+    </div>
+<% end %>
+

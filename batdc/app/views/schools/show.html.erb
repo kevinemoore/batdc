@@ -1,0 +1,31 @@
+<h3> <%= @school.official_name %> </h3>
+
+<table>
+    <tr><th>Address</th></tr>
+    <tr><td><%= @school.address1 %></td></tr>
+    <tr><td><%= @school.address2 %></td></tr>
+    <tr><td><%= @school.city %></td></tr>
+    <tr><td><%= @school.state %></td></tr>
+    <tr><td><%= @school.zip %></td></tr>
+    <tr><td><%= @school.country %></td></tr>
+</table>
+
+<% levels = [] %>
+<% levels << "Pre-K" if @school.prek == 'Yes' %>
+<% levels << "Elementary" if @school.elementary == 'Yes' %>
+<% levels << "Middle School" if @school.middle == 'Yes' %>
+<% levels << "High School" if @school.highschool == 'Yes' %>
+<table>
+    <tr><th>Levels</th></tr>
+    <% levels.each do |l| %>
+        <tr><td><%= l %></td></tr>
+    <% end %>
+</table>
+
+<h4>Notes:</h4>
+<div><p>
+<%= @school.notes %>
+</p></div>
+
+<%= link_to 'Edit', edit_school_path(@school) %>
+<%= link_to 'Back', schools_path %>
