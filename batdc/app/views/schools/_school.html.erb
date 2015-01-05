@@ -1,71 +1,65 @@
 
-<div>
-<%= f.label :name %>
-<%= f.text_field :name %>
+<div class="form-group">
+    <div class="row">
+        <%= f.label :name, class: "col-sm-2 control-label" %>
+        <%= f.text_field :name, class: "col-sm-4" %>
 
-<%= f.label :official_name %>
-<%= f.text_field :official_name %>
+        <%= f.label :official_name, class: "col-sm-2 control-label" %>
+        <%= f.text_field :official_name, class: "col-sm-4" %>
+    </div>
+    <div class="row">
+        <%= f.label :website, class: "col-sm-2 control-label" %>
+        <%= f.text_field :website, class: "col-sm-10" %>
+    </div>
+    <div class="row">
+        <%= f.label :office_phone, class: "col-sm-2 control-label" %>
+        <%= f.phone_field :office_phone, class: "col-sm-4" %>
+        
+        <%= f.label :fax, class: "col-sm-2 control-label" %>
+        <%= f.phone_field :fax, class: "col-sm-4" %>
+    </div>
+
+    <div class="row">
+        <%= f.label :address1, class: "col-sm-2 control-label" %>
+        <%= f.text_field :address1, class: "col-sm-4" %>
+        
+        <%= f.label :address2, class: "col-sm-2 control-label" %>
+        <%= f.text_field :address2, class: "col-sm-4" %>
+    </div>
+
+    <div class="row">
+        <%= f.label :city, class: "col-sm-2 control-label" %>
+        <%= f.text_field :city, class: "col-sm-4" %>
+
+        <%= f.label :state, class: "col-sm-2 control-label" %>
+        <%= f.text_field :state, class: "col-sm-1" %>
+        
+        <%= f.label :zip, class: "col-sm-1 control-label" %>
+        <%= f.text_field :zip, class: "col-sm-2" %>
+    </div>
+
+    <div class="row">
+        <%= f.label :region, class: "col-sm-2 control-label" %>
+        <%= f.select :region, ['Bay Area','Southern California','Other'], class: "col-sm-2" %>
+    </div>
 </div>
 
-<div>
-<%= f.label(:website) %>
-<%= f.text_field :website %>
+<% categories = [:prek, :elementary, :middle, :highschool] %>
+<% labels = { :prek => 'Pre-K',
+              :elementary => 'Elementary',
+              :middle => 'Middle',
+              :highschool => 'High School'} %>
+ 
+<div class="form-group col-sm-4" rows="<%= categories.length %>">
+    <% categories.each do |c| %>
+        <div class="row">
+            <label class="control-label col-sm-5"> <%= labels[c] %></label>
+            <%= f.check_box c, class: "col-sm-1" %>
+        </div>
+    <% end %>
 </div>
 
-<div>
-<%= f.label :office_phone %>
-<%= f.phone_field :office_phone %>
-</div>
-
-<div>
-<%= f.label :fax %>
-<%= f.phone_field :fax %>
-</div>
-
-<div>
-<%= f.label :address1 %>
-<%= f.text_field :address1 %>
-</div>
-
-<div>
-<%= f.label :address2 %>
-<%= f.text_field :address2 %>
-</div>
-
-<div>
-<%= f.label :city %>
-<%= f.text_field :city %>
-</div>
-
-<div>
-<%= f.label :state %>
-<%= f.text_field :state %>
-</div>
-
-<div>
-<%= f.label :zip %>
-<%= f.text_field :zip %>
-</div>
-
-<div>
-<%= f.label :notes %>
-<%= f.text_area :notes %>
-</div>
-
-<div>
-<%= f.label :region %>
-<%= f.select(:region, ['Bay Area','Southern California','Other']) %>
-</div>
-
-<div>
-    <table>
-        <tr><th> Grades </th></tr>    
-        <% categories = [:prek, :elementary, :middle, :highschool] %>
-        <% categories.each do |c| %>
-            <tr>
-                <td><%= c %></td>
-                <td><%= f.check_box c %></td>
-            </tr>
-        <% end %>
-    </table>    
+<div class="form-group col-sm-8">
+    <%= f.label :notes, class: "col-sm-2 control-label" %>
+    <%= f.text_area :notes, class: "col-sm-6", rows: 4 %>
 </div>
