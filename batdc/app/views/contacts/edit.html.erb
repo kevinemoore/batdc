@@ -2,10 +2,12 @@
 
 <%= form_for @contact, method: :patch do |f| %>
     <%= render 'contact', :f => f%>
-    <div>
-        <%= f.submit "Apply" %>
-        <%= button_tag "Reset", :type => 'reset' %>
-        <%= button_to "Cancel", @contact %>
+    <div class="container">
+        <div class ="row">
+            <%= f.submit "Apply", class:  "col-sm-2"%>
+            <%= button_tag "Reset", :type => 'reset', class:  "col-sm-2" %>
+            <%= button_to "Cancel", @contact, class:  "col-sm-2" %>
+        </div>
     </div>
 <% end %>
 
