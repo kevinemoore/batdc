@@ -4,9 +4,13 @@
     <div class="form-inputs">
         <%= render 'school', :f => f%>
 
-        <%= f.submit "Apply" %>
-        <%= button_tag "Reset", :type => 'reset' %>
-        <%= button_to "Cancel", @school %>
+        <div class ="container">
+            <div class="row">
+                <%= f.submit "Apply", class:  "col-sm-2" %>
+                <%= button_tag "Reset", :type => 'reset', class: "col-sm-2" %>
+                <%= button_to "Cancel", @school, class: "col-sm-2" %>
+            </div>
+        </div>
     </div>
 <% end %>
 
