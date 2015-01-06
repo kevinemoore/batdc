@@ -40,7 +40,7 @@ if env == "staging"
   worker_processes 2
   # feel free to point this anywhere accessible on the filesystem
   user 'root', 'root'
-  shared_path = "/root/apps/batdc/shared"
+  shared_path = "/home/rails/apps/batdc/shared"
 
   stderr_path "#{shared_path}/log/unicorn.stderr.log"
   stdout_path "#{shared_path}/log/unicorn.stdout.log"

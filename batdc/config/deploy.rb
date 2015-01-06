@@ -12,7 +12,7 @@ set :default_stage,   "staging"
 
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, '/root/apps/batdc'
+set :deploy_to, '/home/rails/apps/batdc'
 
 # Default value for :scm is :git
 set :scm, :git
