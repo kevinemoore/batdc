@@ -30,7 +30,7 @@ gem 'spring',        group: :development
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn', group: [:staging, :production]
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -51,5 +51,5 @@ gem 'will_paginate'
 # ruby-like
 gem 'bootstrap-sass', '3.2.0.2'
 gem 'sprockets'
-gem 'autoprefixer-rails'
+gem 'autoprefixer-rails', '4.0.2.2'
 gem 'simple_form'
