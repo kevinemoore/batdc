@@ -1,5 +1,5 @@
 class ContactsController < ApplicationController
-  load_resource
+  load_and_authorize_resource except: [:create]
   
   def index
     @contacts = Contact.order(:last, :first).paginate(:page => params[:page], :per_page =>
@@ -7,8 +7,7 @@ class ContactsController < ApplicationController
   end
 
   def create
-    @contact = Contact.new(contact_params)
-    @contact.save
+    @contact = Contact.create(contact_params)
     redirect_to @contact
   end
 
@@ -22,10 +21,10 @@ class ContactsController < ApplicationController
 
   private
   def contact_params
-    params.require(:contact).permit(:last, :first, :role, :title,
-  :school_id, :eventbrite_id, :email_primary, :email_secondary,
-  :work_phone, :notes, :subject_area, :gPK, :gK, :g01, :g02, :g03,
-  :g04, :g05, :g06, :g07, :g08, :g09, :g10, :g11, :g12)
+    params.require(:contact).permit(:last, :first, :title, :role, 
+  :eventbrite_id, :school_id, :email_primary, :email_secondary,
+  :work_phone, :subject_area, :other_subject, :gPK, :gK, :g01, :g02, :g03,
+  :g04, :g05, :g06, :g07, :g08, :g09, :g10, :g11, :g12, :notes)
   end
 
 end

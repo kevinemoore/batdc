@@ -2,7 +2,7 @@
 
 class Contact < ActiveRecord::Base
   belongs_to :school
-
+ 
   def grade_field_label(f)
     labels = {}
     labels[:gPK] = "Pre K"

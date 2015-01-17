@@ -1,63 +1,61 @@
 
-<div class="form-group">
-    <div class="row">
-        <%= f.label :last_name, class: "col-sm-2" %>
-        <%= f.text_field :last, class: "col-sm-4" %>
+<div class="row">
+    <%= f.label :last_name, class: "col-sm-2" %>
+    <%= f.text_field :last, class: "col-sm-4" %>
 
-        <%= f.label :first_name, class: "col-sm-2"%>
-        <%= f.text_field :first, class: "col-sm-4"%>
-    </div>
+    <%= f.label :first_name, class: "col-sm-2"%>
+    <%= f.text_field :first, class: "col-sm-4"%>
+</div>
 
-    <div class="row">
-        <%= f.label :title, class: "col-sm-2"%>
-        <%= f.text_field :title, class: "col-sm-4" %>
+<div class="row">
+    <%= f.label :title, class: "col-sm-2"%>
+    <%= f.text_field :title, class: "col-sm-4" %>
 
-        <%= f.label :role, class: "col-sm-2"%>
-        <%= f.select :role, ['Not Specified','Academic Dean','Assistant Head of School','Athletic Director','Dean of Faculty','Dean of Students/Student Life','Dean of Community/Inclusion/Diversity','Director of Admissions','Director of Alumni Relations','Director of Communications','Director of Development/Advancement','Director of Teaching and Learning','Director of Technology/Innovation','Head of School','Lower School Division Head','Middle School Division Head','Upper School Division Head','Administrative Assistant','Administrative Assistant to the Head','Admissions Associate','After School and Summer Programs Coordinator','Alumni Relations Associate','Athletic Department Associate','Business Manager','Business Associate','Class/Grade Dean','College Counselor','Communications Associate','Counselor/Psychologist','Development/Advancement Associate','Health/Wellness Coordinator','Learning Specialist','Librarian','Registrar','Service Learning/Community Service Coordinator','Technology/Media Staff','Teacher','Department Chair and Teacher','Teaching Assistant/Intern'], class: "col-sm-4" %>
-    </div>
+    <%= f.label :role, class: "col-sm-2"%>
+    <%= f.select :role, ['Not Specified','Academic Dean','Assistant Head of School','Athletic Director','Dean of Faculty','Dean of Students/Student Life','Dean of Community/Inclusion/Diversity','Director of Admissions','Director of Alumni Relations','Director of Communications','Director of Development/Advancement','Director of Teaching and Learning','Director of Technology/Innovation','Head of School','Lower School Division Head','Middle School Division Head','Upper School Division Head','Administrative Assistant','Administrative Assistant to the Head','Admissions Associate','After School and Summer Programs Coordinator','Alumni Relations Associate','Athletic Department Associate','Business Manager','Business Associate','Class/Grade Dean','College Counselor','Communications Associate','Counselor/Psychologist','Development/Advancement Associate','Health/Wellness Coordinator','Learning Specialist','Librarian','Registrar','Service Learning/Community Service Coordinator','Technology/Media Staff','Teacher','Department Chair and Teacher','Teaching Assistant/Intern'], class: "col-sm-4" %>
+</div>
 
-    <div class="row">
-        <%= f.label :eventbrite_id, class: "col-sm-2" %>
-        <%= f.number_field :eventbrite_id, class: "col-sm-4" %>
+<div class="row">
+    <%= f.label :eventbrite_id, class: "col-sm-2" %>
+    <%= f.number_field :eventbrite_id, class: "col-sm-4" %>
 
-        <%= f.label :school, class: "col-sm-2"%>
-        <%= collection_select(:contact, :school_id, School.all, :id, :name, class: "col-sm-4") %>
-    </div>
+    <%= f.label :school, class: "col-sm-2"%>
+    <%= collection_select(:contact, :school_id, School.all, :id, :name, class: "col-sm-4") %>
+</div>
 
-    <div class="row">
-        <%= f.label :email_primary, class: "col-sm-2" %>
-        <%= f.email_field :email_primary, class: "col-sm-4" %>
-        
-        <%= f.label :email_secondary, class: "col-sm-2" %>
-        <%= f.email_field :email_secondary, class: "col-sm-4" %>
-    </div>
-
-    <div class="row">
-        <%= f.label :work_phone, class: "col-sm-2" %>
-        <%= f.phone_field :work_phone, class: "col-sm-4" %>
-    </div>
-
-    <div class="row">
-        <%= f.label :subject_area, class: "col-sm-2" %>
-        <div class="col-sm-4">
-            <%= f.select :subject_area, ['Not Specified','Administration','English','Foreign Language','Generalist','History/Social Studies','Humanities','Math','Music','Performing Arts','Physical Education','Science','Technology','Theology','Visual Arts','Other'] %>
-        </div>
-        <%= f.label :other_subject, class: "col-sm-2"%>
-        <%= f.text_field :other_subject, class: "col-sm-4" %>
-    </div>
-
-    <div class="row">               
-        <div class="form-group col-sm-6">
-            <label> Teaches </label class="control-label col-sm-5">
-            <% all_grades = [:gPK, :gK, :g01, :g02, :g03, :g04, :g05, :g06, :g07, :g08, :g09, :g10, :g11, :g12] %>
-            <% all_grades.each do |g| %>
-                <div class="row">
-                    <%= f.label @contact.grade_field_label(g), class: "col-sm-5"%>
-                    <%= f.check_box g, class: "col-sm-1 col-sm-offset-1" %>
-                </div>
-            <% end %>
-        </div>
-        <%= f.label :notes, class: "col-sm-2" %>
-        <%= f.text_area :notes, class: "col-sm-4", rows: 6 %>
-    </div>
+<div class="row">
+    <%= f.label :email_primary, class: "col-sm-2" %>
+    <%= f.email_field :email_primary, class: "col-sm-4" %>
     
+    <%= f.label :email_secondary, class: "col-sm-2" %>
+    <%= f.email_field :email_secondary, class: "col-sm-4" %>
+</div>
+
+<div class="row">
+    <%= f.label :work_phone, class: "col-sm-2" %>
+    <%= f.phone_field :work_phone, class: "col-sm-4" %>
+</div>
+
+<div class="row">
+    <%= f.label :subject_area, class: "col-sm-2" %>
+    <div class="col-sm-4">
+        <%= f.select :subject_area, ['Not Specified','Administration','English','Foreign Language','Generalist','History/Social Studies','Humanities','Math','Music','Performing Arts','Physical Education','Science','Technology','Theology','Visual Arts','Other'] %>
+    </div>
+    <%= f.label :other_subject, class: "col-sm-2"%>
+    <%= f.text_field :other_subject, class: "col-sm-4" %>
+</div>
+
+<div class="row">               
+    <div class="form-group col-sm-6">
+        <label> Teaches </label class="control-label col-sm-5">
+        <% all_grades = [:gPK, :gK, :g01, :g02, :g03, :g04, :g05, :g06, :g07, :g08, :g09, :g10, :g11, :g12] %>
+        <% all_grades.each do |g| %>
+            <div class="row">
+                <%= f.label @contact.grade_field_label(g), class: "col-sm-5"%>
+                <%= f.check_box g, class: "col-sm-1 col-sm-offset-1" %>
+            </div>
+        <% end %>
+    </div>
+    <%= f.label :notes, class: "col-sm-2" %>
+    <%= f.text_area :notes, class: "col-sm-4", rows: 6 %>
+</div>
