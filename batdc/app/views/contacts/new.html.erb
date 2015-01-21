@@ -1,6 +1,4 @@
-<h1> Add a new contact </h1>
-
-<%= form_for :contact, url: contacts_path do |f| %>
+<%= form_for @contact, url: {action: "create"} do |f| %>
 <%= render 'contact', :f => f %>
 <%= f.submit "Create" %>
 <% end %>

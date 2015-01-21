@@ -5,8 +5,11 @@ class Ability
     anonymous = user.nil?
     user = User.new if anonymous
 
-    # All users can read all tables.
+    # All users can access contacts
     can [:create, :read, :update, :delete], Contact
+
+    # All users can access schools
+    can [:create, :read, :update, :delete], School
 
   end
 end

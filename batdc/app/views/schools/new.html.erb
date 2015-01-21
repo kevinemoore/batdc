@@ -1,0 +1,4 @@
+<%= form_for @school, url: schools_path do |f| %>
+    <%= render 'school', :f => f%>    
+    <%= f.submit "Create" %> 
+<% end %>

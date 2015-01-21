@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217005535) do
+ActiveRecord::Schema.define(version: 20150117045803) do
 
   create_table "attendance", id: false, force: true do |t|
     t.integer  "contact_id",                                         default: 0, null: false
@@ -89,23 +89,26 @@ ActiveRecord::Schema.define(version: 20141217005535) do
     t.text     "description"
     t.text     "notes"
     t.decimal  "num_sessions",             precision: 10, scale: 0
-    t.datetime "last_update",                                       null: false
+    t.datetime "updated_at",                                        null: false
+    t.datetime "created_at"
   end
 
   add_index "events", ["venue"], name: "event_fk_school", using: :btree
 
   create_table "membership", id: false, force: true do |t|
-    t.integer  "school_id",   null: false
-    t.integer  "year",        null: false
-    t.datetime "last_update", null: false
+    t.integer  "school_id",  null: false
+    t.integer  "year",       null: false
+    t.datetime "updated_at", null: false
+    t.datetime "created_at"
   end
 
   add_index "membership", ["school_id"], name: "school_id", using: :btree
 
   create_table "preferred", force: true do |t|
-    t.integer  "school_id",   null: false
-    t.integer  "contact_id",  null: false
-    t.datetime "last_update", null: false
+    t.integer  "school_id",  null: false
+    t.integer  "contact_id", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "created_at"
   end
 
   add_index "preferred", ["contact_id"], name: "contact_id", using: :btree
@@ -130,11 +133,12 @@ ActiveRecord::Schema.define(version: 20141217005535) do
     t.string   "country",       limit: 80
     t.text     "notes"
     t.string   "region",        limit: 19,  default: "Other"
-    t.string   "prek",          limit: 3,   default: "No"
-    t.string   "elementary",    limit: 3,   default: "No"
-    t.string   "middle",        limit: 3,   default: "No"
-    t.string   "highschool",    limit: 3,   default: "No"
-    t.datetime "last_update",                                 null: false
+    t.boolean  "prek",                      default: false
+    t.boolean  "elementary",                default: false
+    t.boolean  "middle",                    default: false
+    t.boolean  "highschool",                default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "schools", ["name"], name: "name", unique: true, using: :btree

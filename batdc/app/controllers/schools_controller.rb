@@ -1,6 +1,6 @@
 class SchoolsController < ApplicationController
-  load_resource
-  
+  load_and_authorize_resource except: [:create]
+
   def index
     @schools = School.order(:official_name).paginate(:page => params[:page], :per_page =>
   25)

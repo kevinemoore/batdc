@@ -130,11 +130,11 @@ class CreateDatabase < ActiveRecord::Migration
       t.string    "country",       limit: 80
       t.text      "notes"
       t.string    "region",        limit: 19,  default: "Other"
-      t.string    "prek",          limit: 3,   default: "No"
-      t.string    "elementary",    limit: 3,   default: "No"
-      t.string    "middle",        limit: 3,   default: "No"
-      t.string    "highschool",    limit: 3,   default: "No"
-      t.timestamp "last_update",                                 null: false
+      t.boolean   "prek",                      default: false
+      t.boolean   "elementary",                default: false
+      t.boolean   "middle",                    default: false
+      t.boolean   "highschool",                default: false
+      t.timestamps
     end
 
     add_index "schools", ["name"], name: "name", unique: true, using: :btree
