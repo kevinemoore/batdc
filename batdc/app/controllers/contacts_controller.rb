@@ -2,8 +2,17 @@ class ContactsController < ApplicationController
   load_and_authorize_resource except: [:create]
   
   def index
-    @contacts = Contact.order(:last, :first).paginate(:page => params[:page], :per_page =>
-  25)
+    if params[:search]
+      @contacts = Contact.where("last like ? or first like ?",
+                                "%#{params[:search]}%",
+                                "%#{params[:search]}%").order(:last, :first).paginate(:page => 
+                                                                                      params[:page],
+                                                                                      :per_page => 25)
+    else
+      @contacts = Contact.order(:last, :first).paginate(:page =>
+                                                        params[:page],
+                                                        :per_page => 25)
+    end
   end
 
   def create
