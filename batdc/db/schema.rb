@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150117045803) do
+ActiveRecord::Schema.define(version: 20150121033319) do
 
   create_table "attendance", id: false, force: true do |t|
     t.integer  "contact_id",                                         default: 0, null: false
@@ -104,15 +104,15 @@ ActiveRecord::Schema.define(version: 20150117045803) do
 
   add_index "membership", ["school_id"], name: "school_id", using: :btree
 
-  create_table "preferred", force: true do |t|
+  create_table "preferred_contacts", force: true do |t|
     t.integer  "school_id",  null: false
     t.integer  "contact_id", null: false
     t.datetime "updated_at", null: false
     t.datetime "created_at"
   end
 
-  add_index "preferred", ["contact_id"], name: "contact_id", using: :btree
-  add_index "preferred", ["school_id"], name: "school_id", using: :btree
+  add_index "preferred_contacts", ["contact_id"], name: "contact_id", using: :btree
+  add_index "preferred_contacts", ["school_id"], name: "school_id", using: :btree
 
   create_table "school_alias", id: false, force: true do |t|
     t.integer "school_id",                         null: false

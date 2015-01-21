@@ -27,5 +27,14 @@
 <%= @school.notes %>
 </p></div>
 
+<h4> Preferred Contacts: </h4>
+<% @school.preferred_contacts.each do |c| %>
+    <div class="row">
+        <div class="col-sm-6 col-md-3"><%= link_to c.full_name, c %></div>
+        <div class="col-sm-6 col-md-3"><%= c.role %></div>
+        <div class="col-sm-4 col-md-2"><%= c.work_phone %></div>
+        <div class="col-sm-8 col-md-4"><%= c.email_primary %></div>
+    </div>
+<% end  %>
 <%= link_to 'Edit', edit_school_path(@school) %>
 <%= link_to 'Back', schools_path %>
