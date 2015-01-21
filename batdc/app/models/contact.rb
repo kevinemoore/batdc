@@ -4,6 +4,10 @@ class Contact < ActiveRecord::Base
   belongs_to :school
   has_one :preferred_contact
  
+  def full_name
+    fn = "#{self.first} #{self.last}"
+  end
+
   def grade_field_label(f)
     labels = {}
     labels[:gPK] = "Pre K"
