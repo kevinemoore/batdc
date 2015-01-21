@@ -27,5 +27,8 @@
 <%= @school.notes %>
 </p></div>
 
+<% @school.preferred_contacts.each do |c| %>
+    <p><%=c.last%>,<%= c.first %></p>
+<% end  %>
 <%= link_to 'Edit', edit_school_path(@school) %>
 <%= link_to 'Back', schools_path %>

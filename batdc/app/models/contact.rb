@@ -2,6 +2,7 @@
 
 class Contact < ActiveRecord::Base
   belongs_to :school
+  has_one :preferred_contact
  
   def grade_field_label(f)
     labels = {}
