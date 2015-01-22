@@ -1,0 +1,10 @@
+<%= form_for @event, method: :patch do |f| %>
+    <%= render 'event', :f => f%>
+    <div class="container">
+        <div class ="row">
+            <%= f.submit "Apply", class:  "col-sm-2"%>
+            <%= button_tag "Reset", :type => 'reset', class:  "col-sm-2" %>
+            <%= button_to "Cancel", @event, class:  "col-sm-2" %>
+        </div>
+    </div>
+<% end %>

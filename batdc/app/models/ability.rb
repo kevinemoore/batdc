@@ -11,5 +11,8 @@ class Ability
     # All users can access schools
     can [:create, :read, :update, :delete], School
 
+    # All users can access events
+    can [:create, :read, :update, :delete], Event
+
   end
 end
