@@ -1,0 +1,4 @@
+<%= form_for @event, url: {action: "create"} do |f| %>
+    <%= render 'event', :f => f %>
+    <%= f.submit "Create" %>
+<% end %>

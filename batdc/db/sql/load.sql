@@ -35,3 +35,31 @@ c.other_subject,
 c.status, c.subscribed, c.last_update
 from batdc.contacts c join batdc.schools s on
 c.school = s.name;
+
+insert into events (
+id,
+eventbrite_id,
+event_name,
+event_type,
+series,
+start_date,
+end_date,
+venue,
+url,
+description,
+num_sessions,
+updated_at)
+select
+id,
+eventbrite_id,
+event_name,
+event_type,
+series,
+start_date,
+end_date,
+venue,
+url,
+description,
+num_sessions,
+last_update
+from batdc.events;
