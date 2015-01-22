@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150121033319) do
+ActiveRecord::Schema.define(version: 20150121222003) do
 
   create_table "attendance", id: false, force: true do |t|
     t.integer  "contact_id",                                         default: 0, null: false
@@ -139,6 +139,8 @@ ActiveRecord::Schema.define(version: 20150121033319) do
     t.boolean  "highschool",                default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "latitude",      limit: 24
+    t.float    "longitude",     limit: 24
   end
 
   add_index "schools", ["name"], name: "name", unique: true, using: :btree

@@ -53,3 +53,6 @@ gem 'bootstrap-sass', '3.2.0.2'
 gem 'sprockets'
 gem 'autoprefixer-rails', '4.0.2.2'
 gem 'simple_form'
+
+# Add Google maps
+gem 'geocoder'

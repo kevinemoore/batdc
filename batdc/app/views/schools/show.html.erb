@@ -1,14 +1,53 @@
 <h3> <%= @school.official_name %> </h3>
 
-<table>
-    <tr><th>Address</th></tr>
-    <tr><td><%= @school.address1 %></td></tr>
-    <tr><td><%= @school.address2 %></td></tr>
-    <tr><td><%= @school.city %></td></tr>
-    <tr><td><%= @school.state %></td></tr>
-    <tr><td><%= @school.zip %></td></tr>
-    <tr><td><%= @school.country %></td></tr>
-</table>
+<div class="row">
+    <table class="col-sm-4 col-xs-8">
+        <tr><th>Address</th></tr>
+        <tr><td><%= @school.address1 %></td></tr>
+        <tr><td><%= @school.address2 %></td></tr>
+        <tr><td><%= @school.city %></td></tr>
+        <tr><td><%= @school.state %></td></tr>
+        <tr><td><%= @school.zip %></td></tr>
+        <tr><td><%= @school.country %></td></tr>
+    </table>
+
+    <style>
+     #map_canvas {
+         width: 250px;
+         height: 200px;
+     }
+    </style>      
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+    <script> 
+     google.maps.event.addDomListener(window, 'load', initialize);
+     
+     function initialize() {
+         var s_loc = new google.maps.LatLng(<%= @school.latitude %>, <%= @school.longitude %>);
+         var map_canvas = document.getElementById('map_canvas');
+         var map_options = {
+             center: s_loc,
+             zoom: 12,
+             mapTypeId: google.maps.MapTypeId.ROADMAP
+         };
+         
+         themap = new google.maps.Map(map_canvas, map_options);
+         var marker = new google.maps.Marker({
+             position: s_loc,
+             map: themap,
+             url: "<%= @school.map_link %>",
+             title: "<%= @school.name %>"
+         });
+         
+         google.maps.event.addDomListener(window, 'page:load', initialize);
+         google.maps.event.addListener(marker, 'click', function() {
+             window.location.href = marker.url;
+         });
+     }
+     
+    </script>
+    <div id="map_canvas" class="col-sm-4 col-xs-8"></div>
+</div>
 
 <% levels = [] %>
 <% levels << "Pre-K" if @school.prek == 'Yes' %>
