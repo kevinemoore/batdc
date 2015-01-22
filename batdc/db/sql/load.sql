@@ -63,3 +63,18 @@ description,
 num_sessions,
 last_update
 from batdc.events;
+
+insert into attendees (
+contact_id,
+event_id,
+paid,
+sponsor_school_id,
+updated_at )
+select
+a.contact_id,
+a.event_id,
+a.paid,
+s.id,
+a.last_update
+from batdc.attendance a JOIN batdc.schools s
+ON a.sponsor_school = s.name;

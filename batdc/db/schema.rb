@@ -11,18 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150121222003) do
+ActiveRecord::Schema.define(version: 20150122210152) do
 
-  create_table "attendance", id: false, force: true do |t|
-    t.integer  "contact_id",                                         default: 0, null: false
-    t.integer  "event_id",                                           default: 0, null: false
-    t.decimal  "paid",                      precision: 10, scale: 2
-    t.string   "sponsor_school", limit: 60
-    t.datetime "last_update",                                                    null: false
+  create_table "attendees", force: true do |t|
+    t.integer  "contact_id",                                 default: 0, null: false
+    t.integer  "event_id",                                   default: 0, null: false
+    t.decimal  "paid",              precision: 10, scale: 2
+    t.integer  "sponsor_school_id"
+    t.datetime "updated_at",                                             null: false
+    t.datetime "created_at"
   end
 
-  add_index "attendance", ["event_id"], name: "event_id", using: :btree
-  add_index "attendance", ["sponsor_school"], name: "sponsor_school", using: :btree
+  add_index "attendees", ["event_id"], name: "event_id", using: :btree
+  add_index "attendees", ["sponsor_school_id"], name: "sponsor_school", using: :btree
 
   create_table "contacts", force: true do |t|
     t.string   "last",            limit: 60

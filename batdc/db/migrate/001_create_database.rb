@@ -14,7 +14,7 @@
 class CreateDatabase < ActiveRecord::Migration
   def self.up
     # insert schema.rb here
-    create_table "attendance", id: false, force: true do |t|
+    create_table "attendance", force: true do |t|
       t.integer   "contact_id",                                         default: 0, null: false
       t.integer   "event_id",                                           default: 0, null: false
       t.decimal   "paid",                      precision: 10, scale: 2
