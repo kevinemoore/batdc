@@ -10,6 +10,10 @@ class SchoolsController < ApplicationController
     end
   end
 
+  def show
+    @school.geocode_if_needed
+  end
+
   def create
     @school = School.new(school_params)
     @school.save
