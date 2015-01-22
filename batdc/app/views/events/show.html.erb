@@ -23,5 +23,20 @@
 <h4>Notes:</h4>
 <%= @event.notes %>
 
+<h4>Attendees:</h4>
+<table class="col-xs-12 col-sm-12 col-md-12">
+    <th>Name</th>
+    <th>Email</th>
+    <th>School</th>
+    <th>Paid</th>
+    <%  @event.attendees.includes(:contact, :sponsor_school).each do |a| %>
+        <tr>
+            <td> <%= link_to a.contact.full_name, a.contact %> </td>
+            <td> <%= a.contact.email_primary %> </td>
+            <td> <%= a.sponsor_school.name %> </td>
+            <td> <%= a.paid %> </td>
+        </tr>
+    <% end %>
+</table>
 <%= link_to 'Edit', edit_event_path(@event) %>
 <%= link_to 'Back', events_path %>

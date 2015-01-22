@@ -3,6 +3,7 @@
 class Contact < ActiveRecord::Base
   belongs_to :school
   has_one :preferred_contact
+  has_many :attendees
  
   def full_name
     fn = "#{self.first} #{self.last}"
