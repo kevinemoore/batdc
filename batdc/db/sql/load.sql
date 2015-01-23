@@ -1,3 +1,6 @@
+alter table schools
+drop index name;
+
 insert into schools
 (id, name, official_name, website,
 office_phone, fax, address1, address2, city,
@@ -33,7 +36,7 @@ c.other_subject,
 (case when c.g11 = 'YES' then true else false end),
 (case when c.g12 = 'YES' then true else false end),
 c.status, c.subscribed, c.last_update
-from batdc.contacts c join batdc.schools s on
+from batdc.contacts c left outer join batdc.schools s on
 c.school = s.name;
 
 insert into events (
