@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
+gem 'rack', '~> 1.6.0'
+
 # Use mysql as the database for Active Record
 gem 'mysql2'
 # Use SCSS for stylesheets
@@ -33,7 +35,10 @@ gem 'spring',        group: :development
 gem 'unicorn', group: [:staging, :production]
 
 # Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+group :development do
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
