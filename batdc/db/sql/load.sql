@@ -1,3 +1,6 @@
+alter table schools
+drop index name;
+
 insert into schools
 (id, name, official_name, website,
 office_phone, fax, address1, address2, city,

@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.3.5'
+#lock '3.3.5'
 
 set :application, 'batdc'
 set :repo_url, 'git@github.com:kevinemoore/batdc.git'
