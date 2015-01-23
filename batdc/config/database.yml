@@ -49,8 +49,8 @@ test:
 #
 production:
   <<: *default
-  database: batdc_production
-  username: batdc
+  database: rails
+  username: rails
   password: <%= ENV['BATDC_DATABASE_PASSWORD'] %>
 
 staging:
