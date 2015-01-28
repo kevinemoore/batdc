@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150122210152) do
+ActiveRecord::Schema.define(version: 20150128014634) do
 
   create_table "attendees", force: :cascade do |t|
     t.integer  "contact_id",        limit: 4,                          default: 0, null: false
@@ -114,6 +114,17 @@ ActiveRecord::Schema.define(version: 20150122210152) do
 
   add_index "preferred_contacts", ["contact_id"], name: "contact_id", using: :btree
   add_index "preferred_contacts", ["school_id"], name: "school_id", using: :btree
+
+  create_table "roles", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles_users", id: false, force: :cascade do |t|
+    t.integer "role_id", limit: 4
+    t.integer "user_id", limit: 4
+  end
 
   create_table "school_alias", id: false, force: :cascade do |t|
     t.integer "school_id", limit: 4,               null: false

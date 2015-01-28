@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users,  :controllers => { :registrations => "users/registrations" }
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -54,6 +55,17 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  
+  devise_scope :user do
+    root to: 'schools#index'    
+    get 'access_denied' => 'users/registrations#access_denied', as: :access_denied
+  end
+
+  resources :users, :except => [:new, :create] do
+    member do
+      patch :authorize
+    end
+  end
 
   resources :contacts
   resources :schools

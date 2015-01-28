@@ -8,8 +8,6 @@
     </head>
     <body>
 
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
         
         <% if notice %>
             <p class="alert alert-success"><%= notice %></p>
@@ -40,15 +38,15 @@
                             <li><%= link_to 'Schools', schools_path %></li>
                             <li><%= link_to 'Contacts', contacts_path %></li>
                             <li><%= link_to 'Events', events_path %></li>
+                            <% if user_signed_in? and can? :manage, :all %>
+                                <li><%= link_to 'Admin', users_path %></li>
+                            <% end %>
                         </ul>
                        
                         <ul class="nav navbar-nav navbar-right">
-                            <% if user_signed_in? %>
-                                Logged in as <strong><%= current_user.email %></strong>.                                
-                                <li><%= link_to 'Edit profile', edit_user_registration_path %></li>
+                            <% if user_signed_in? %>                                
                                 <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>
                             <% else %>
-                                <li><%= link_to "Sign up", new_user_registration_path %></li>
                                 <li><%= link_to "Login", new_user_session_path, :class => 'navbar-link' %></li>
                             <% end %>
                         </ul>
