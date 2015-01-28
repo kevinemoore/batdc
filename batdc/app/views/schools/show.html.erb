@@ -21,7 +21,8 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
     <script> 
      google.maps.event.addDomListener(window, 'load', initialize);
-     
+     google.maps.event.addDomListener(window, 'page:load', initialize);
+
      function initialize() {
          var s_loc = new google.maps.LatLng(<%= @school.latitude %>, <%= @school.longitude %>);
          var map_canvas = document.getElementById('map_canvas');
@@ -39,7 +40,6 @@
              title: "<%= @school.name %>"
          });
          
-         google.maps.event.addDomListener(window, 'page:load', initialize);
          google.maps.event.addListener(marker, 'click', function() {
              window.location.href = marker.url;
          });
