@@ -21,10 +21,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def authorize
+    auth_role = Role.find_by_name(:authorized)
+    @user.roles << auth_role unless @user.roles.include? auth_role
+    @user.save!
+    redirect_to :users
+  end
+
   private
 
   def permitted_params
-    params.require(:user).permit(:email, :encrypted_password)
+    params.require(:user).permit(:email, :role)
   end
 
 end

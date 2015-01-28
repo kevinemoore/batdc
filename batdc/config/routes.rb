@@ -61,7 +61,11 @@ Rails.application.routes.draw do
     get 'access_denied' => 'users/registrations#access_denied', as: :access_denied
   end
 
-  resources :users, :except => [:new, :create]
+  resources :users, :except => [:new, :create] do
+    member do
+      patch :authorize
+    end
+  end
 
   resources :contacts
   resources :schools
