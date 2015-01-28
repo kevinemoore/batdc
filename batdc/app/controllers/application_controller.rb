@@ -4,7 +4,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to new_user_session_path
+    flash[:error] = exception.message
+    #redirect_to new_user_session_path
+    if current_user
+      redirect_to :access_denied
+    else
+      redirect_to :new_user_session
+    end
   end
 
   check_authorization unless: :devise_controller?

@@ -7,17 +7,15 @@ class Ability
 
     if user.role? :admin
       can :manage, :all
-    else
-      unless anonymous
-        # Approved users can access contacts
-        can [:create, :read, :update, :delete], Contact
-        
-        # Approved users can access schools
-        can [:create, :read, :update, :delete], School
-        
-        # Approved users can access events
-        can [:create, :read, :update, :delete], Event
-      end
-    end   
+    elsif user.role? :authorized
+      # Approved users can access contacts
+      can [:create, :read, :update, :delete], Contact
+      
+      # Approved users can access schools
+      can [:create, :read, :update, :delete], School
+      
+      # Approved users can access events
+      can [:create, :read, :update, :delete], Event
+    end
   end
 end
