@@ -59,7 +59,9 @@ Rails.application.routes.draw do
   devise_scope :user do
     root to: 'schools#index'
   end
-  
+
+  resources :users, :except => [:new, :create]
+
   resources :contacts
   resources :schools
   resources :events
