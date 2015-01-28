@@ -19,7 +19,7 @@
 <td><%= c.email_primary %></td>
 <td><%= c.role %></td>
 <% if c.school %>
-    <td><%= c.school.name %></td>
+    <td><%= link_to c.school.official_name, c.school %></td>
 <% else %>
     <td> NOT SPECIFIED </td>
 <% end %>
