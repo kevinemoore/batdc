@@ -50,10 +50,10 @@
 </div>
 
 <% levels = [] %>
-<% levels << "Pre-K" if @school.prek == 'Yes' %>
-<% levels << "Elementary" if @school.elementary == 'Yes' %>
-<% levels << "Middle School" if @school.middle == 'Yes' %>
-<% levels << "High School" if @school.highschool == 'Yes' %>
+<% levels << "Pre-K" if @school.prek %>
+<% levels << "Elementary" if @school.elementary %>
+<% levels << "Middle School" if @school.middle %>
+<% levels << "High School" if @school.highschool %>
 <table>
     <tr><th>Levels</th></tr>
     <% levels.each do |l| %>
