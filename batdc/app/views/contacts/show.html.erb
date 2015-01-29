@@ -30,5 +30,13 @@
 <% end %>
 </table>
 
+<table>
+<tr><th>Attended:</th></tr>
+<% @contact.events.each do |e| %>
+<tr><td><%= link_to e.event_name, e %></td></tr>
+<% end %>
+</table>
+
+
 <%= link_to 'Edit', edit_contact_path(@contact) %>
 <%= link_to 'Back', contacts_path %>

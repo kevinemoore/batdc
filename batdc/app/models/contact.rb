@@ -4,6 +4,7 @@ class Contact < ActiveRecord::Base
   belongs_to :school
   has_one :preferred_contact
   has_many :attendees
+  has_many :events, through: :attendees
 
   scope :status, -> (status) { where status: status }
   scope :search, -> (term) {
