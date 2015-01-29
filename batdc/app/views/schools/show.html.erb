@@ -75,5 +75,13 @@
         <div class="col-sm-8 col-md-4"><%= c.email_primary %></div>
     </div>
 <% end  %>
+
+<h4> Member In: </h4>
+<div class="row">
+<% @school.membership_years.order(:year).reverse_order.each do |y| %>
+    <div class="col-sm-6 col-md-3"><%= y.year %></div>
+<% end  %>
+</div>
+
 <%= link_to 'Edit', edit_school_path(@school) %>
 <%= link_to 'Back', schools_path %>

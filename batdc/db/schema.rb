@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150128014634) do
+ActiveRecord::Schema.define(version: 20150129004100) do
 
   create_table "attendees", force: :cascade do |t|
     t.integer  "contact_id",        limit: 4,                          default: 0, null: false
@@ -96,14 +96,14 @@ ActiveRecord::Schema.define(version: 20150128014634) do
 
   add_index "events", ["venue"], name: "event_fk_school", using: :btree
 
-  create_table "membership", id: false, force: :cascade do |t|
+  create_table "membership_years", id: false, force: :cascade do |t|
     t.integer  "school_id",  limit: 4, null: false
     t.integer  "year",       limit: 4, null: false
     t.datetime "updated_at",           null: false
     t.datetime "created_at"
   end
 
-  add_index "membership", ["school_id"], name: "school_id", using: :btree
+  add_index "membership_years", ["school_id"], name: "school_id", using: :btree
 
   create_table "preferred_contacts", force: :cascade do |t|
     t.integer  "school_id",  limit: 4, null: false

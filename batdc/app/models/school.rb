@@ -3,6 +3,7 @@
 class School < ActiveRecord::Base
   has_many :contacts
   has_many :preferred_contacts
+  has_many :membership_years
 
   after_validation :geocode
   geocoded_by :full_address
