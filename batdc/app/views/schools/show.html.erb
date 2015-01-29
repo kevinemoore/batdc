@@ -78,10 +78,22 @@
 
 <h4> Member In: </h4>
 <div class="row">
-<% @school.membership_years.order(:year).reverse_order.each do |y| %>
+<% @school.membership_years.order(year: :desc).each do |y| %>
     <div class="col-xs-2 col-sm-1 col-md-1"><%= y.year %></div>
 <% end  %>
 </div>
+
+
+<h4>Teachers Attended:</h4>
+<table class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<% @school.sent_to_events.each do |a| %>
+    <tr>
+        <td><%= link_to a.contact.full_name, a.contact %></td>
+        <td><%= link_to a.event.event_name, a.event %></td>
+    </tr>
+<% end %>
+</table>
+
 
 <%= link_to 'Edit', edit_school_path(@school) %>
 <%= link_to 'Back', schools_path %>

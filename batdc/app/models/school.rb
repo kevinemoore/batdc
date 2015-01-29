@@ -4,6 +4,8 @@ class School < ActiveRecord::Base
   has_many :contacts
   has_many :preferred_contacts
   has_many :membership_years
+  has_many :attendees, foreign_key: :sponsor_school_id
+  has_many :events, through: :attendees
 
   after_validation :geocode
   geocoded_by :full_address
@@ -27,6 +29,10 @@ class School < ActiveRecord::Base
   
   def geocode_if_needed
     geocode if latitude == nil
+  end
+
+  def sent_to_events
+    self.attendees.includes(:contact).includes(:event)
   end
 
 end
