@@ -6,7 +6,7 @@ class School < ActiveRecord::Base
   has_many :membership_years
 
   after_validation :geocode
-  geocoded_by :full_address
+  geocoded_by :full_address  
 
   def preferred_contacts
     Contact.joins(preferred_contact: :school).where('preferred_contacts.school_id = ?', id)

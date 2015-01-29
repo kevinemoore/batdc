@@ -1,10 +1,14 @@
+<div class="row">
+    <%= f.label :status, class: "col-xs-2 col-sm-2"%>
+    <%= f.select :role, ['Active', 'Inactive'], class: "col-xs-4 col-sm-2"%>
+</div>
 
 <div class="row">
-    <%= f.label :last_name, class: "col-sm-2" %>
-    <%= f.text_field :last, class: "col-sm-4" %>
-
-    <%= f.label :first_name, class: "col-sm-2"%>
-    <%= f.text_field :first, class: "col-sm-4"%>
+    <%= f.label :last_name, class: "col-xs-2 col-sm-2" %>
+    <%= f.text_field :last, class: "col-xs-4 col-sm-4" %>
+    
+    <%= f.label :first_name, class: "col-xs-2 col-sm-2"%>
+    <%= f.text_field :first, class: "col-xs-4 col-sm-4"%>
 </div>
 
 <div class="row">
@@ -45,15 +49,13 @@
     <%= f.text_field :other_subject, class: "col-sm-4" %>
 </div>
 
-<div class="row">               
+<label> Teaches </label class="control-label col-sm-5">
+<div class="row">
     <div class="form-group col-sm-6">
-        <label> Teaches </label class="control-label col-sm-5">
         <% all_grades = [:gPK, :gK, :g01, :g02, :g03, :g04, :g05, :g06, :g07, :g08, :g09, :g10, :g11, :g12] %>
         <% all_grades.each do |g| %>
-            <div class="row">
-                <%= f.label @contact.grade_field_label(g), class: "col-sm-5"%>
-                <%= f.check_box g, class: "col-sm-1 col-sm-offset-1" %>
-            </div>
+            <%= f.label @contact.grade_field_label(g), class: "col-xs-5 col-sm-5"%>
+            <%= f.check_box g, class: "col-xs-1 col-sm-1 col-sm-offset-1" %>
         <% end %>
     </div>
     <%= f.label :notes, class: "col-sm-2" %>

@@ -3,15 +3,15 @@ class ContactsController < ApplicationController
   
   def index
     if params[:search]
-      @contacts = Contact.where("last like ? or first like ?",
-                                "%#{params[:search]}%",
-                                "%#{params[:search]}%").order(:last, :first).paginate(:page => 
+      @contacts = Contact.status('Active').where("last like ? or first like ?",
+                                                 "%#{params[:search]}%",
+                                                 "%#{params[:search]}%").order(:last, :first).paginate(:page => 
                                                                                       params[:page],
                                                                                       :per_page => 25)
     else
-      @contacts = Contact.order(:last, :first).paginate(:page =>
-                                                        params[:page],
-                                                        :per_page => 25)
+      @contacts = Contact.status('Active').order(:last, :first).paginate(:page =>
+                                                                         params[:page],
+                                                                         :per_page => 25)
     end
   end
 

@@ -4,6 +4,8 @@ class Contact < ActiveRecord::Base
   belongs_to :school
   has_one :preferred_contact
   has_many :attendees
+
+  scope :status, -> (status) { where status: status }
  
   def full_name
     fn = "#{self.first} #{self.last}"
