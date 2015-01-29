@@ -78,3 +78,7 @@ s.id,
 a.last_update
 from batdc.attendance a JOIN batdc.schools s
 ON a.sponsor_school = s.name;
+
+insert into membership_years (school_id, year)
+select school_id, year
+from batdc.membership

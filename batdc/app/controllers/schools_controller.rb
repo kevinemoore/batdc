@@ -2,12 +2,13 @@ class SchoolsController < ApplicationController
   load_and_authorize_resource except: [:create]
 
   def index
+    @schools = School.where(nil)
     if params[:search]
-      @schools = School.where("name like ? or official_name like ?",
-                              "%#{params[:search]}%", "%#{params[:search]}%").order(:official_name).paginate(page: params[:page], per_page: 25)
-    else
-      @schools = School.order(:official_name).paginate(page: params[:page], per_page: 25)
+      @schools = @schools.search(params[:search])      
     end
+    
+    @schools = @schools.order(:official_name)
+    @schools = @schools.paginate(page: params[:page], per_page: 25)
   end
 
   def show

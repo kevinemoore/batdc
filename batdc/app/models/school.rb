@@ -3,9 +3,12 @@
 class School < ActiveRecord::Base
   has_many :contacts
   has_many :preferred_contacts
+  has_many :membership_years
 
   after_validation :geocode
   geocoded_by :full_address
+
+  scope :search, -> (term) { where("name like ? or official_name like ?", term, term) }
 
   def preferred_contacts
     Contact.joins(preferred_contact: :school).where('preferred_contacts.school_id = ?', id)

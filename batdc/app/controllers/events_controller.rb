@@ -2,15 +2,10 @@ class EventsController < ApplicationController
   load_and_authorize_resource except: [:create]
 
   def index
-    if params[:search]
-      filt = "event_name like ?"
-      srch = "%#{params[:search]}%"
-      pag = { page: params[:page], per_page: 25}
-      @events = Event.where(filt, srch).order(:start_date).paginate(pag)
-    else
-      @events = Event.order(start_date: :desc).paginate(page: params[:page],
-    per_page: 25)
-    end
+    @events = Event.all
+    @events = @events.search(params[:search]) if params[:search]
+    @events = @events.order(start_date: :desc)
+    @events = @events.paginate(page: params[:page], per_page: 25)
   end
 
   def create

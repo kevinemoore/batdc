@@ -4,7 +4,19 @@ class Contact < ActiveRecord::Base
   belongs_to :school
   has_one :preferred_contact
   has_many :attendees
- 
+
+  scope :status, -> (status) { where status: status }
+  scope :search, -> (term) {
+    t = "%#{term}%"
+    pred = "last like ? "
+    pred += "or first like ? "
+    pred += "or role like ? "
+    pred += "or title like ?"
+    where(pred, t, t, t, t)
+  }
+  
+  scope :at_school, -> (at_school) { where school_id: at_school }
+
   def full_name
     fn = "#{self.first} #{self.last}"
   end
