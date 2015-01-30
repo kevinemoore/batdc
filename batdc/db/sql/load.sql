@@ -1,10 +1,11 @@
 insert into schools
 (id, name, official_name, website,
 office_phone, fax, address1, address2, city,
-state, zip, country, updated_at, created_at)
+state, zip, country, region, updated_at, created_at)
 select id, name, official_name, website,
 office_phone, fax, address1, address2, city,
-state, zip, country, now(), now() from batdc.schools;
+state, zip, country, region, now(), now()
+from batdc.schools;
 
 insert into contacts
 (id, last, first, role, title, school_id,
