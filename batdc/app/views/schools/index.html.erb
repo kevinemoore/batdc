@@ -11,14 +11,14 @@
 
 <table class="col-sm-12 col-md-12">
 <tr>
-<th>Official Name</th>
+<th>Name</th>
 <th>Web</th>
 <th>Phone</th>
 <th>City</th>
 </tr>
 <% @schools.each do |s| %>
 <tr>
-<td><%= link_to s.official_name, s %></td>
+<td><%= link_to s.name, s %></td>
 <% if s.website %>
     <td><%= link_to 'web', s.website %> </td>
 <% else %>

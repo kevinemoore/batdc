@@ -68,6 +68,10 @@ Rails.application.routes.draw do
   end
 
   resources :contacts
-  resources :schools
+  resources :schools do
+    member do
+      patch :add_preferred
+    end
+  end
   resources :events
 end

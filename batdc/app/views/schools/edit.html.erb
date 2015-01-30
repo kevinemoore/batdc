@@ -12,3 +12,12 @@
     </div>
 <% end %>
 
+<%= render 'preferred' %>
+
+<%= form_tag(add_preferred_school_path(@school), :method => "patch", id: "pref-form") do %>
+    <div class="form-inputs">
+        <%= label_tag('Add Preferred Contact') %>
+        <%= collection_select(:preferred_contact, :contact_id, @school.contacts, :id, :full_name) %>
+        <%= submit_tag('Add') %>
+    </div>
+<% end %>
