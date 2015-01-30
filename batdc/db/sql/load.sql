@@ -82,7 +82,7 @@ ON a.sponsor_school = s.name;
 
 insert into membership_years (school_id, year)
 select school_id, year
-from batdc.membership
+from batdc.membership;
 
 update contacts
 set status = 'Inactive'
