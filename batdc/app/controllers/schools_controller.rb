@@ -17,7 +17,7 @@ class SchoolsController < ApplicationController
       @schools = @schools.region(params[:region])
     end
 
-    @schools = @schools.order(:official_name)
+    @schools = @schools.order(:name)
     @schools = @schools.paginate(page: params[:page], per_page: 25)
   end
 
@@ -25,6 +25,10 @@ class SchoolsController < ApplicationController
     @school.geocode_if_needed
   end
 
+  def new
+    @school = School.new
+  end
+  
   def create
     @school = School.new(school_params)
     @school.save
@@ -39,11 +43,20 @@ class SchoolsController < ApplicationController
     end
   end
 
+  def add_preferred
+    c_id = params[:preferred_contact][:contact_id]
+    s_id = params[:id]
+    pc = PreferredContact.create({school_id: s_id, contact_id: c_id})
+    redirect_to edit_school_path(@school)
+  end
+
   private
   def school_params
     params.require(:school).permit(:name, :official_name, :website,
   :office_phone, :fax, :address1, :address2, :city, :state, :zip,
-  :country, :notes, :region, :prek, :elementary, :middle, :highschool)
+  :country, :notes, :region, :prek, :elementary, :middle, :highschool,
+                                   preferred_contacts_attributes: [
+  :contact_id, :school_id])
   end
 
 end

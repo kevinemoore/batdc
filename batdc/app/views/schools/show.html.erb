@@ -1,5 +1,5 @@
 <h3> <%= @school.official_name %> </h3>
-
+<h4> <%= @school.office_phone %> </h4>
 <div class="row">
     <table class="col-sm-4 col-xs-8">
         <tr><th>Address</th></tr>
@@ -66,15 +66,7 @@
 <%= @school.notes %>
 </p></div>
 
-<h4> Preferred Contacts: </h4>
-<% @school.preferred_contacts.each do |c| %>
-    <div class="row">
-        <div class="col-sm-6 col-md-3"><%= link_to c.full_name, c %></div>
-        <div class="col-sm-6 col-md-3"><%= c.role %></div>
-        <div class="col-sm-4 col-md-2"><%= c.work_phone %></div>
-        <div class="col-sm-8 col-md-4"><%= c.email_primary %></div>
-    </div>
-<% end  %>
+<%= render 'preferred' %>
 
 <h4> Member In: </h4>
 <div class="row">
@@ -84,7 +76,7 @@
 </div>
 
 
-<h4>Teachers Attended:</h4>
+<h4>Event Participation:</h4>
 <table class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 <% @school.sent_to_events.each do |a| %>
     <tr>
