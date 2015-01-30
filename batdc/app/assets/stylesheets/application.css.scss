@@ -1,0 +1,48 @@
+
+
+/*
+ * This is a manifest file that'll automatically include all the
+ * stylesheets available in this directory and any
+ * sub-directories. You're free to add application-wide styles to
+ * this file and they'll appear at the top of the compiled file, but
+ * it's generally better to create a new file per style scope. 
+ * require bootstrap
+ */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+body {
+  padding-top: 0px;
+  // min-height: 1080px
+}
+
+a {
+  color: #1375fa;
+}
+
+.navbar-default {
+  background-color: #E4F2EE;
+  border-color: #090909;
+}
+
+.navbar {
+  padding: 5px 0px 5px 0px
+}
+
+.navbar-logo {
+  height: 45px;
+  margin-top: 0px;
+}
+
+.navbar-link-icon {
+  height: 26px;
+  margin-top: -8px;
+  padding-right: 5px;
+  padding-top: 2px;
+  // float: left;
+}
+
+a [class^="icon-chevron-right"], a [class*=" icon-chevron-right"] {
+  display: inline-block;
+}
