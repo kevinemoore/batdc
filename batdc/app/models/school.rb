@@ -10,7 +10,13 @@ class School < ActiveRecord::Base
   after_validation :geocode
   geocoded_by :full_address
 
-  scope :search, -> (term) { where("name like ? or official_name like ?", term, term) }
+  scope :search, -> (term) { 
+    t = "%#{term}%"
+    pred = "name like ? "
+    pred += "or official_name like ? "
+    where(pred, t, t)
+  }
+  scope :region, -> (region) { where(region: region) }
 
   def preferred_contacts
     Contact.joins(preferred_contact: :school).where('preferred_contacts.school_id = ?', id)

@@ -2,11 +2,21 @@ class SchoolsController < ApplicationController
   load_and_authorize_resource except: [:create]
 
   def index
-    @schools = School.where(nil)
-    if params[:search]
-      @schools = @schools.search(params[:search])      
+    if params[:members_only] 
+      @schools = School.joins(:membership_years).where('membership_years.year' => 2015)
+      #@schools = School.all.merge(MembershipYear.in_year(2015))
+    else
+      @schools = School.all
     end
-    
+
+    if params[:search] and params[:search].length > 0
+      @schools = @schools.search(params[:search]) 
+    end
+
+    if params[:region] and params[:region].length > 0
+      @schools = @schools.region(params[:region])
+    end
+
     @schools = @schools.order(:official_name)
     @schools = @schools.paginate(page: params[:page], per_page: 25)
   end
