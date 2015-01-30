@@ -2,9 +2,10 @@ class ContactsController < ApplicationController
   load_and_authorize_resource except: [:create]
   
   def index
-    @contacts = Contact.status('Active')
+    @contacts = Contact.all
+    @contacts = @contacts.status('Active')
     @contacts = @contacts.search(params[:search]) if params[:search]
-    @contacts = @contacts.at_school(params[:at_school])
+    @contacts = @contacts.at_school(params[:at_school]) if params[:at_school]
     @contacts = @contacts.order(:last, :first)
     @contacts = @contacts.paginate(:page => params[:page], :per_page => 25)
   end
