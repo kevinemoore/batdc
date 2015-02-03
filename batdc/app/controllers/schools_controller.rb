@@ -50,13 +50,24 @@ class SchoolsController < ApplicationController
     redirect_to edit_school_path(@school)
   end
 
+  def add_membership    
+    my = MembershipYear.create(school_id: params[:id], year:
+    params[:year] )
+    redirect_to edit_school_path(@school)
+  end
+
+  def del_membership
+    MembershipYear.delete_all(["school_id = ? AND year = ?", params[:id], params[:year]])
+    redirect_to edit_school_path(@school)
+  end
+
   private
   def school_params
     params.require(:school).permit(:name, :official_name, :website,
   :office_phone, :fax, :address1, :address2, :city, :state, :zip,
   :country, :notes, :region, :prek, :elementary, :middle, :highschool,
                                    preferred_contacts_attributes: [
-  :contact_id, :school_id])
+  :contact_id, :school_id, :year])
   end
 
 end

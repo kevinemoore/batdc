@@ -8,3 +8,16 @@
         </div>
     </div>
 <% end %>
+
+<%= render 'attendee' %>
+
+<%= form_tag(add_attendee_event_path(@event), :method => "patch", id: "attendee-form") do %>
+    <div class="form-inputs">
+        <%= label_tag('Add Attendee') %>
+        <%= collection_select(:attendee, :contact_id, Contact.status('Active').order(:last, :first), :id, :full_name) %>
+        <%= collection_select(:attendee, :sponsor_school_id, School.all, :id, :name) %>
+        <%= label_tag(:paid) %>
+        <%= number_field_tag(:paid, :paid)%>
+        <%= submit_tag('Add') %>
+    </div>
+<% end %>

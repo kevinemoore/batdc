@@ -12,12 +12,21 @@
     </div>
 <% end %>
 
-<%= render 'preferred' %>
+<%= render 'preferred', locals: {editing: true} %>
 
 <%= form_tag(add_preferred_school_path(@school), :method => "patch", id: "pref-form") do %>
     <div class="form-inputs">
         <%= label_tag('Add Preferred Contact') %>
-        <%= collection_select(:preferred_contact, :contact_id, @school.contacts, :id, :full_name) %>
+        <%= collection_select(:preferred_contact, :contact_id, @school.contacts.order(:last, :first), :id, :role_and_name) %>
+        <%= submit_tag('Add') %>
+    </div>
+<% end %>
+
+<%= render 'membership', locals: {editing: true} %>
+<%= form_tag(add_membership_school_path(@school), :method => "patch", id: "pref-form") do %>
+    <div class="form-inputs">
+        <%= label_tag('Add Membership Year') %>
+        <%= number_field_tag(:year) %>
         <%= submit_tag('Add') %>
     </div>
 <% end %>

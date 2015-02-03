@@ -71,7 +71,16 @@ Rails.application.routes.draw do
   resources :schools do
     member do
       patch :add_preferred
+      patch :add_membership
+      patch :del_membership
     end
   end
-  resources :events
+  resources :events do
+    member do
+      patch :add_attendee
+    end
+  end
+
+  resources :attendees, only: [:destroy]
+  resources :preferred_contacts, only: [:destroy]
 end

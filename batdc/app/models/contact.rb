@@ -22,6 +22,12 @@ class Contact < ActiveRecord::Base
     fn = "#{self.first} #{self.last}"
   end
 
+  def role_and_name
+    rn = full_name
+    rn += " - #{role}" if role
+    rn
+  end
+
   def grade_field_label(f)
     labels = {}
     labels[:gPK] = "Pre K"
