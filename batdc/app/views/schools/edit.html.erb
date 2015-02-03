@@ -21,3 +21,12 @@
         <%= submit_tag('Add') %>
     </div>
 <% end %>
+
+<%= render 'membership', locals: {editing: true} %>
+<%= form_tag(add_membership_school_path(@school), :method => "patch", id: "pref-form") do %>
+    <div class="form-inputs">
+        <%= label_tag('Add Membership Year') %>
+        <%= number_field_tag(:year) %>
+        <%= submit_tag('Add') %>
+    </div>
+<% end %>

@@ -1,0 +1,14 @@
+<div class="row">
+    <h4> Membership Years </h4>
+    <table class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <% @school.membership_years.order(:year).each do |my| %>
+            <%= form_tag(del_membership_school_path(@school), method: :patch, id: "del-#{my.year}") do %>
+                <%= hidden_field_tag(:year, my.year) %>
+                <tr>
+                    <td><%= my.year %></td>
+                    <td> <%= submit_tag('Delete', data: {confirm: "Confirm?"}) %></td>
+                </tr>
+            <% end %>
+        <% end %>
+    </table>
+</div>

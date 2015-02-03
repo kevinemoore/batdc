@@ -71,6 +71,8 @@ Rails.application.routes.draw do
   resources :schools do
     member do
       patch :add_preferred
+      patch :add_membership
+      patch :del_membership
     end
   end
   resources :events do
