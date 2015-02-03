@@ -15,4 +15,7 @@ class ApplicationController < ActionController::Base
 
   check_authorization unless: :devise_controller?
 
+  # set per_page globally
+  WillPaginate.per_page = 20
+
 end

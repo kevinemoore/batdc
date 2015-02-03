@@ -7,7 +7,7 @@ class ContactsController < ApplicationController
     @contacts = @contacts.search(params[:search]) if params[:search]
     @contacts = @contacts.at_school(params[:at_school]) if params[:at_school]
     @contacts = @contacts.order(:last, :first)
-    @contacts = @contacts.paginate(:page => params[:page], :per_page => 25)
+    @contacts = @contacts.paginate(:page => params[:page])
   end
 
   def create

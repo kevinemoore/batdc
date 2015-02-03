@@ -18,7 +18,7 @@ class SchoolsController < ApplicationController
     end
 
     @schools = @schools.order(:name)
-    @schools = @schools.paginate(page: params[:page], per_page: 25)
+    @schools = @schools.paginate(page: params[:page])
   end
 
   def show
