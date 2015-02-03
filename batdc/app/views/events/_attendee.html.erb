@@ -1,0 +1,18 @@
+<div class="row">
+    <h4> Attendees </h4>
+    <table class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <th>Contact</th>
+        <th>Sponsor School</th>
+        <th>Paid</th>
+        <% @event.attendees.each do |a| %>
+            <tr>
+                <td><%= a.contact.full_name %></td>
+                <td><%= a.sponsor_school.name %></td>
+                <td><%= a.paid %></td>
+                <td> <%= button_to 'Delete', a, method: :delete, data: {confirm: "Confirm?"} %>
+            </tr>
+        <% end %>
+    </table>
+</div>
+
+

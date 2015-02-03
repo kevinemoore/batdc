@@ -15,7 +15,10 @@ class Ability
       can [:create, :read, :update, :delete], School
       
       # Approved users can access events
-      can [:create, :read, :update, :delete], Event
+      can [:create, :read, :update, :delete, :add_attendee], Event
+
+      # Approved users can delete attendee records
+      can [:delete], Attendee
     end
   end
 end

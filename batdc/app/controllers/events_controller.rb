@@ -20,6 +20,14 @@ class EventsController < ApplicationController
       render 'edit'
     end
   end
+
+  def add_attendee
+    ({ contact_id: params[:attendee][:contact_id],
+       event_id: @event.id,
+       sponsor_school_id: params[:sponsor_school_id],
+       paid: params[:paid] })
+    redirect_to edit_event_path(@event)
+  end
   
   private
   def event_params
