@@ -12,7 +12,8 @@ class Ability
       can [:create, :read, :update, :delete], Contact
       
       # Approved users can access schools
-      can [:create, :read, :update, :delete], School
+      can [:create, :read, :update, :delete, :add_preferred,
+      :add_membership, :del_membership], School
       
       # Approved users can access events
       can [:create, :read, :update, :delete, :add_attendee], Event
