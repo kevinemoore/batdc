@@ -80,4 +80,5 @@ Rails.application.routes.draw do
   end
 
   resources :attendees, only: [:destroy]
+  resources :preferred_contacts, only: [:destroy]
 end
