@@ -18,10 +18,6 @@ class School < ActiveRecord::Base
   }
   scope :region, -> (region) { where(region: region) }
 
-  def preferred_contacts
-    Contact.joins(preferred_contact: :school).where('preferred_contacts.school_id = ?', id)
-  end
-  
   def full_address(commas=true)
     addr = "#{address1} #{address2}, #{city}, #{state}"
   end
