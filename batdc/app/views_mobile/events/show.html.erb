@@ -23,7 +23,7 @@
 <h4>Notes:</h4>
 <%= @event.notes %>
 
-<h4>Attendees:</h4>
+<h4>Attendees: <%= @event.attendees.count %></h4>
 <table class="col-xs-12 col-sm-12 col-md-12">
     <th>Name</th>
     <th>School</th>
@@ -36,9 +36,14 @@
                 <td> CONTACT NOT FOUND ID: <%= a.contact_id %> </td>
             <% end %>
             <td> <%= link_to a.sponsor_school.name, a.sponsor_school %> </td>
-            <td> <%= a.paid %> </td>
+            <td class="text-right"> <%= number_to_currency(a.paid) %> </td>
         </tr>
     <% end %>
+    <tr>
+        <td></td>
+        <td></td>
+        <th class="text-right"><%= number_to_currency(@event.attendees.sum(:paid)) %></th>
+    </tr>
 </table>
 <%= button_to('Edit', edit_event_path(@event), method: :get) %>
 
