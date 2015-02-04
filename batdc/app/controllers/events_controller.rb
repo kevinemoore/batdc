@@ -1,6 +1,8 @@
 class EventsController < ApplicationController
   load_and_authorize_resource except: [:create]
 
+  before_filter :check_for_mobile, :only => [:index, :show]
+
   def index
     @events = Event.all
     @events = @events.search(params[:search]) if params[:search]

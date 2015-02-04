@@ -1,6 +1,8 @@
 class SchoolsController < ApplicationController
   load_and_authorize_resource except: [:create]
 
+  before_filter :check_for_mobile, :only => [:index]
+
   def index
     if params[:members_only] 
       @schools = School.joins(:membership_years).where('membership_years.year' => 2015)

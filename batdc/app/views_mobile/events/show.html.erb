@@ -26,17 +26,14 @@
 <h4>Attendees:</h4>
 <table class="col-xs-12 col-sm-12 col-md-12">
     <th>Name</th>
-    <th>Email</th>
     <th>School</th>
     <th>Paid</th>
     <%  @event.attendees.includes(:contact, :sponsor_school).each do |a| %>
         <tr>
             <% if a.contact %>
                 <td> <%= link_to a.contact.full_name, a.contact %> </td>
-                <td> <%= a.contact.email_primary %> </td>
             <% else %>
-                <td> CONTACT NOT FOUND </td>
-                <td> ID <%= a.contact_id %> </td>
+                <td> CONTACT NOT FOUND ID: <%= a.contact_id %> </td>
             <% end %>
             <td> <%= link_to a.sponsor_school.name, a.sponsor_school %> </td>
             <td> <%= a.paid %> </td>

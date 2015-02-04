@@ -10,11 +10,11 @@
 </td></tr>
 <tr><td>Title</td><td><%= @contact.title %></td></tr>
 <tr><td>Role</td><td><%= @contact.role %></td></tr>
-<tr><td>Email</td><td><%= @contact.email_primary %></td></tr>
+<tr><td>Email</td><td><%= mail_to @contact.email_primary %></td></tr>
 <% if @contact.email_secondary %>
     <tr><td>Email</td><td><%= @contact.email_secondary %></td></tr>
 <% end %>
-<tr><td>Phone</td><td><%= @contact.work_phone %></td></tr>
+<tr><td>Phone</td><td><%= phone_number_link @contact.work_phone %></td></tr>
 <tr><td>Subject Area</td><td><%= @contact.subject_area %></td></tr>
 </table>
 
@@ -38,5 +38,5 @@
 </table>
 
 
-<%= link_to 'Edit', edit_contact_path(@contact) %>
-<%= link_to 'Back', contacts_path %>
+<%= button_to('Edit', edit_contact_path(@contact), method: :get) %>
+

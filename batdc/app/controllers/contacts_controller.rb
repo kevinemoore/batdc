@@ -1,6 +1,8 @@
 class ContactsController < ApplicationController
   load_and_authorize_resource except: [:create]
   
+  before_filter :check_for_mobile, :only => [:index]
+
   def index
     @contacts = Contact.all
     @contacts = @contacts.status('Active')
