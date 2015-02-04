@@ -1,13 +1,15 @@
 class ContactsController < ApplicationController
   load_and_authorize_resource except: [:create]
   
+  before_filter :check_for_mobile, :only => [:index]
+
   def index
     @contacts = Contact.all
     @contacts = @contacts.status('Active')
     @contacts = @contacts.search(params[:search]) if params[:search]
     @contacts = @contacts.at_school(params[:at_school]) if params[:at_school]
     @contacts = @contacts.order(:last, :first)
-    @contacts = @contacts.paginate(:page => params[:page], :per_page => 25)
+    @contacts = @contacts.paginate(:page => params[:page])
   end
 
   def create

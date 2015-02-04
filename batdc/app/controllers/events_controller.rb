@@ -1,11 +1,13 @@
 class EventsController < ApplicationController
   load_and_authorize_resource except: [:create]
 
+  before_filter :check_for_mobile, :only => [:index, :show]
+
   def index
     @events = Event.all
     @events = @events.search(params[:search]) if params[:search]
     @events = @events.order(start_date: :desc)
-    @events = @events.paginate(page: params[:page], per_page: 25)
+    @events = @events.paginate(page: params[:page])
   end
 
   def create

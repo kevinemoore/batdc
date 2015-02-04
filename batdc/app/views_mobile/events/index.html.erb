@@ -1,0 +1,20 @@
+
+<div class="row col-xs-12 col-sm-12">
+    <%= form_tag(events_path, :method => "get", role: "search", id: "search-form") do %>
+        <%= text_field_tag :search, params[:search], class: "form-control col-sm-12 col-xs-12", placeholder: "Search Events" %>
+    <% end %>
+</div>
+
+<%= button_to('New', new_event_path, method: :get) %>
+
+<table class="col-xs-12 col-sm-12 col-md-12">
+<% @events.each do |e| %>
+    <tr>
+        <td><%= link_to e.event_name, e %></td>
+    </tr>
+<% end %>
+</table>
+
+<div class ="row col-xs-12 col-sm-12 col-md-12">
+    <%= will_paginate @events %>
+</div>

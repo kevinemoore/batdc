@@ -1,0 +1,23 @@
+<div class="row col-xs-12 col-sm-12">
+    <%= form_tag(schools_path, :method => "get", role: "search", id: "search-form") do %>
+        <%= text_field_tag :search, params[:search], class: "form-control col-sm-4 col-xs-6", placeholder: "Search Schools" %>
+        <% regions = ['Bay Area', 'Southern California', 'Other']%>
+        <%= select_tag(:region, options_for_select(regions, params[:region]), class: "form-control col-sm-4 col-xs-6", :onchange => "this.form.submit();", :include_blank => true) %>
+        <%= label_tag(:members_only, "Member Schools Only") %>
+        <%= check_box_tag(:members_only, params[:members_only], :onchange=>"this.form.submit();") %>
+        <%= button_tag(:submit) %>
+    <% end %>
+</div>
+
+<%= button_to('New', new_school_path, method: :get) %>
+
+<table class="col-sm-12 col-md-12">
+    <% @schools.each do |s| %>
+        <tr>
+            <td><%= link_to s.name, s %></td>
+            <td><%= phone_number_link s.office_phone %>
+        </tr>
+    <% end %>
+</table>
+
+<%= will_paginate @schools %>

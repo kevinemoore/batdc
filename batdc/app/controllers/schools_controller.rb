@@ -1,6 +1,8 @@
 class SchoolsController < ApplicationController
   load_and_authorize_resource except: [:create]
 
+  before_filter :check_for_mobile, :only => [:index]
+
   def index
     if params[:members_only] 
       @schools = School.joins(:membership_years).where('membership_years.year' => 2015)
@@ -18,7 +20,7 @@ class SchoolsController < ApplicationController
     end
 
     @schools = @schools.order(:name)
-    @schools = @schools.paginate(page: params[:page], per_page: 25)
+    @schools = @schools.paginate(page: params[:page])
   end
 
   def show
