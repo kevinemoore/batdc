@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150206220235) do
+ActiveRecord::Schema.define(version: 20150208073443) do
 
   create_table "attendees", force: :cascade do |t|
     t.integer  "contact_id",        limit: 4,                          default: 0, null: false
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20150206220235) do
     t.datetime "created_at"
   end
 
+  add_index "attendees", ["event_id", "contact_id"], name: "index_attendees_on_event_id_and_contact_id", unique: true, using: :btree
   add_index "attendees", ["event_id"], name: "event_id", using: :btree
   add_index "attendees", ["sponsor_school_id"], name: "sponsor_school", using: :btree
 

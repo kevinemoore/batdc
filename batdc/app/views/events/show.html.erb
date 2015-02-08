@@ -38,14 +38,18 @@
                 <td> CONTACT NOT FOUND </td>
                 <td> ID <%= a.contact_id %> </td>
             <% end %>
-            <td> <%= link_to a.sponsor_school.name, a.sponsor_school %> </td>
-            <td> <%= a.paid %> </td>
+            <% if a.sponsor_school %>
+                <td> <%= link_to a.sponsor_school.name, a.sponsor_school %> </td>
+            <% else %>
+                <td> NOT SPECIFIED </td>
+            <% end %>
+            <td> <%= number_to_currency(a.paid) %> </td>
         </tr>
     <% end %>
     <tr><td></td>
         <td></td>
         <td></td>
-        <th><%= @event.attendees.sum(:paid) %></th>
+        <th><%= number_to_currency(@event.attendees.sum(:paid)) %></th>
     </tr>
 </table>
 <%= button_to('Edit', edit_event_path(@event), method: :get) %>

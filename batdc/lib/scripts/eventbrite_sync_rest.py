@@ -133,31 +133,30 @@ def replace_attendee(cursor, a):
 
 def find_school_id(cursor, eb_company, eb_email=None):
     # Lookup school
-    sponsor_school = None
+
     sponsor_school_id = None
-    cursor.execute("SELECT id, name FROM schools WHERE name = %s", [eb_company])
+    cursor.execute("SELECT id FROM schools WHERE name = %s", [eb_company])
     for row in cursor:
-        sponsor_school = row[1]
+        sponson_school_id = row[0]
 
-        # Try Alias Table
-        if not sponsor_school:
-            cursor.execute("SELECT a.school_id, s.name "
-                           "FROM school_alias a JOIN schools s "
-                           "ON a.school_id = s.id "
-                           "WHERE alias = %s", [eb_company])
-            for row in cursor:
-                sponsor_school_id = row[0]
-                sponsor_school = row[1]
+    # Try Alias Table
+    if not sponsor_school_id:
+        cursor.execute("SELECT a.school_id, s.name "
+                       "FROM school_alias a JOIN schools s "
+                       "ON a.school_id = s.id "
+                       "WHERE alias = %s", [eb_company])
+        for row in cursor:
+            sponsor_school_id = row[0]
 
-            # Find school by email domain
-            if eb_email and not sponsor_school_id:
-                user, domain = eb_email.split('@')
-                cursor.execute("select distinct school_id "
-                               "from contacts "
-                               "where email_primary like '%%@%s' "
-                               "and school is not null" % domain)
-                for row in cursor:
-                    sponsor_school_id = row[0]
+    # Find school by email domain
+    if eb_email and not sponsor_school_id:
+        user, domain = eb_email.split('@')
+        cursor.execute("select distinct school_id "
+                       "from contacts "
+                       "where email_primary like '%%@%s' "
+                       "and school_id is not null" % domain)
+        for row in cursor:
+            sponsor_school_id = row[0]
 
     return sponsor_school_id
 
@@ -303,11 +302,13 @@ def main(argv):
             a = {}
             eb_last = get_value_or_null(attendee['profile'], 'last_name')
             eb_first = get_value_or_null(attendee['profile'], 'first_name')
-            eb_paid = attendee['costs']['gross']['value']
+            eb_paid = float(attendee['costs']['gross']['value'])/100.0
             eb_event_id = attendee['event']['id']
             eb_attendee_id = attendee['id']
             eb_email = get_value_or_null(attendee['profile'], 'email')
             eb_company = get_value_or_null(attendee['profile'], 'company')
+
+            print "%s, %s at %s" % (eb_last, eb_first, eb_company)
             
             # find contact
             contact_id = find_contact_id(cursor, eb_attendee_id, eb_email, eb_last, eb_first)
@@ -324,9 +325,9 @@ def main(argv):
                 c['school_id'] = sponsor_school_id
                 c['eventbrite_id'] = eb_attendee_id
                 c['work_phone'] = get_value_or_null(attendee, 'work_phone')
-                e['email_primary'] = eb_email
-                e['status'] = 'Active'
-                e['updated_at'] = datetime.now()
+                c['email_primary'] = eb_email
+                c['status'] = 'Active'
+                c['updated_at'] = datetime.now()
 
                 insert_contact(cursor, c)
                 contact_id = find_contact_id(cursor, eb_attendee_id, eb_email, eb_last, eb_first)
