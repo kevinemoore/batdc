@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150129004100) do
+ActiveRecord::Schema.define(version: 20150206220235) do
 
   create_table "attendees", force: :cascade do |t|
     t.integer  "contact_id",        limit: 4,                          default: 0, null: false
@@ -83,8 +83,8 @@ ActiveRecord::Schema.define(version: 20150129004100) do
     t.string   "event_name",    limit: 80
     t.string   "event_type",    limit: 40
     t.string   "series",        limit: 80
-    t.date     "start_date"
-    t.date     "end_date"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.string   "venue",         limit: 60
     t.text     "url",           limit: 65535
     t.text     "description",   limit: 65535
