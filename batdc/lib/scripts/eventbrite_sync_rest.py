@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 import sys
 import argparse
 import getpass
@@ -18,17 +19,7 @@ from mysql.connector import errorcode
 ################################################################################
 
 eb_api_endpoint = "https://www.eventbriteapi.com/v3"
-
-client_secret = "RJYWTAALXR5VARGMEU42LPBZIXN53WCLEMV7GEW44ADZNUJZQI"
-tori_oauth_token = "TB5FU2A6WAQA2XQQUR5J"
-anon_oauth_token = "QZ7LODH2B7LNZU3TTWFJ"
-
-tori_user_key = "138471782981083552087"
-tori_api_key_old = "TAAVSDO3CGUKYS4WNB"
-tori_api_key = "IV2I2ADYZEGG5CHIKY"
-
-eb_auth_tokens = {'app_key': tori_api_key,
-                  'user_key': tori_user_key}
+tori_oauth_token = os.environ['EB_API_KEY']
 
 def eb_request(path, args={}):
     url = "%s/%s?token=%s" % (eb_api_endpoint, path, tori_oauth_token)
@@ -355,6 +346,7 @@ def main(argv):
 
             print "E[%s] %s, %s C[%s]" % (event_id, eb_last, eb_first, contact_id)
                 
-            
+    cnx.commit()
+    
 if __name__ == "__main__":
   main(sys.argv[1:])
