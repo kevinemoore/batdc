@@ -11,6 +11,7 @@ class EventsController < ApplicationController
   end
 
   def create
+    authorize! :create, @event
     @event = Event.create(event_params)
     redirect_to @event
   end
@@ -24,10 +25,10 @@ class EventsController < ApplicationController
   end
 
   def add_attendee
-    ({ contact_id: params[:attendee][:contact_id],
-       event_id: @event.id,
-       sponsor_school_id: params[:sponsor_school_id],
-       paid: params[:paid] })
+    a = Attendee.create( contact_id: params[:attendee][:contact_id],
+                          event_id: @event.id,
+                          sponsor_school_id: params[:attendee][:sponsor_school_id],
+                          paid: params[:paid] )
     redirect_to edit_event_path(@event)
   end
   

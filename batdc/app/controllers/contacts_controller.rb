@@ -13,6 +13,7 @@ class ContactsController < ApplicationController
   end
 
   def create
+    authorize! :create, @contact
     @contact = Contact.create(contact_params)
     redirect_to @contact
   end

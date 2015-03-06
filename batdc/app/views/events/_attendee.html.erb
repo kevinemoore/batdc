@@ -7,7 +7,7 @@
         <% @event.attendees.each do |a| %>
             <tr>
                 <td><%= a.contact.full_name %></td>
-                <td><%= a.sponsor_school.name %></td>
+                <td><%= a.sponsor_school ? a.sponsor_school.name : 'None Specified' %></td>
                 <td><%= a.paid %></td>
                 <td> <%= button_to 'Delete', a, method: :delete, data: {confirm: "Confirm?"} %></td>
             </tr>
