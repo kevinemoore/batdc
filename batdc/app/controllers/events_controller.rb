@@ -11,7 +11,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    authorize! :create, @event
+    authorize! :create, Event
     @event = Event.create(event_params)
     redirect_to @event
   end

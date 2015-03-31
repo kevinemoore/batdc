@@ -32,7 +32,7 @@ class SchoolsController < ApplicationController
   end
   
   def create
-    authorize! :create, @school
+    authorize! :create, School
     @school = School.create(school_params)
     redirect_to @school
   end
