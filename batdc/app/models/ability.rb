@@ -9,7 +9,7 @@ class Ability
       can :manage, :all
     elsif user.role? :authorized
       # Approved users can access contacts
-      can [:create, :read, :update, :delete], Contact
+      can [:create, :read, :update, :delete, :email], Contact
       
       # Approved users can access schools
       can [:create, :read, :update, :delete, :add_preferred,

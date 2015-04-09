@@ -66,8 +66,13 @@ Rails.application.routes.draw do
       patch :authorize
     end
   end
+ 
+  resources :contacts do
+    collection do
+      get :email
+    end
+  end
 
-  resources :contacts
   resources :schools do
     member do
       patch :add_preferred

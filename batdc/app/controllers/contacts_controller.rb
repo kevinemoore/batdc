@@ -26,6 +26,14 @@ class ContactsController < ApplicationController
     end
   end
 
+  def email
+    @contacts = Contact.all
+    @contacts = @contacts.status('Active')
+    @contacts = @contacts.search(params[:search]) if params[:search]
+    @contacts = @contacts.at_school(params[:at_school]) if params[:at_school]
+    @contacts = @contacts.order(:last, :first)
+ end
+
   private
   def contact_params
     params.require(:contact).permit(:last, :first, :title, :role, 

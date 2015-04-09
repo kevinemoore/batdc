@@ -4,6 +4,11 @@
         <!-- <%= select_tag(:at_school, options_from_collection_for_select(School.all, :id, :name), class: "col-md-4 col-sm-4 col-xs-6") %> -->        
     <% end %>
     <%= button_to('New', new_contact_path(), method: :get) %>
+    <% if params[:search] %>
+        <%= link_to('Email', email_contacts_path() + '?search=' + params[:search], method: :get) %>
+    <% else %>
+        <%= link_to('Email', email_contacts_path(), method: :get) %>
+    <% end %>
 </div>
 
 <table class="span-12 col-xs-12 col-sm-12 col-md-12">
