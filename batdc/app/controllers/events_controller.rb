@@ -32,6 +32,9 @@ class EventsController < ApplicationController
     redirect_to edit_event_path(@event)
   end
   
+  def email    
+  end
+
   private
   def event_params
     params.require(:event).permit(:eventbrite_id, :event_name,

@@ -1,0 +1,5 @@
+<% @event.attendees.includes(:contact, :sponsor_school).each do |a| %>
+    <% if a.contact %>
+        <div><%= a.contact.email_primary %></div>
+    <% end %>
+<% end %>

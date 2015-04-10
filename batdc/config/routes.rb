@@ -83,6 +83,7 @@ Rails.application.routes.draw do
   resources :events do
     member do
       patch :add_attendee
+      get :email
     end
   end
 

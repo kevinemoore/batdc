@@ -16,7 +16,8 @@ class Contact < ActiveRecord::Base
     where(pred, t, t, t, t)
   }
   
-  scope :at_school, -> (at_school) { where school_id: at_school }
+  scope :at_school, -> (at_school) { where school_id: at_school if
+  at_school and at_school.length > 0 }
 
   def full_name
     fn = "#{self.first} #{self.last}"

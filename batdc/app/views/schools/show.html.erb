@@ -89,4 +89,5 @@
 <% end %>
 </table>
 
-<%= button_to('Edit', edit_school_path(@school), method: :get) %>
+<% btn_html = "btn btn-default col-xs-2 col-sm-2 col-md-2" %>
+<%= button_to('Edit', edit_school_path(@school), method: :get, class: btn_html) %>

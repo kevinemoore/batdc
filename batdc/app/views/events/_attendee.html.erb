@@ -9,7 +9,8 @@
                 <td><%= a.contact.full_name %></td>
                 <td><%= a.sponsor_school ? a.sponsor_school.name : 'None Specified' %></td>
                 <td><%= a.paid %></td>
-                <td> <%= button_to 'Delete', a, method: :delete, data: {confirm: "Confirm?"} %></td>
+                <% btn_html = "btn btn-default" %>
+                <td> <%= button_to 'Delete', a, method: :delete, data: {confirm: "Confirm?"}, class: btn_html %></td>
             </tr>
         <% end %>
     </table>

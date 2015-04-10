@@ -16,10 +16,10 @@ class Ability
       :add_membership, :del_membership], School
       
       # Approved users can access events
-      can [:create, :read, :update, :delete, :add_attendee], Event
+      can [:create, :read, :update, :delete, :add_attendee, :email], Event
 
       # Approved users can delete attendee records
-      can [:delete], Attendee
+      can [:destroy], Attendee
     end
   end
 end

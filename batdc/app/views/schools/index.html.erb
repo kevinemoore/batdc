@@ -4,13 +4,16 @@
         <% regions = ['Bay Area', 'Southern California', 'Other']%>
         <%= select_tag(:region, options_for_select(regions, params[:region]), class: "form-control col-md-4 col-sm-4 col-xs-6", :onchange => "this.form.submit();", :include_blank => true) %>
         <%= label_tag(:members_only, "Member Schools Only") %>
-        <%= check_box_tag(:members_only, params[:members_only], :onchange=>"this.form.submit();") %>
-        <%= button_tag(:submit) %>
+        <%= check_box_tag(:members_only, params[:members_only], params[:members_only], :onchange=>"this.form.submit();") %>
+        <%= submit_tag('Submit', class: "btn btn-default col-xs-2 col-sm-2 col-md-2") %>
     <% end %>
 </div>
 
-<%= button_to('New', new_school_path(), method: :get) %>
+<div class="row col-xs-12 col-sm-12 col-md-12">
+<%= button_to('New', new_school_path(), method: :get, class: "btn btn-default col-xs-2 col-sm-2 col-md-2") %>
+</div>
 
+<div class="row col-xs-12 col-sm-12 col-md-12">
 <table class="col-sm-12 col-md-12">
 <tr>
 <th>Name</th>
@@ -26,11 +29,10 @@
 <% else %>
     <td> </td>
 <% end %>
-<td><%= s.office_phone %>
+<td><%= s.office_phone %></td>
 <td><%= s.city %></td>
 </tr>
 <% end %>
 </table>
-
+</div>
 <%= will_paginate @schools %>
-

@@ -2,9 +2,10 @@
     <%= render 'event', :f => f%>
     <div class="container">
         <div class ="row">
-            <%= f.submit "Apply", class:  "col-sm-2"%>
-            <%= button_tag "Reset", :type => 'reset', class:  "col-sm-2" %>
-            <%= button_to "Cancel", @event, class:  "col-sm-2" %>
+            <% btn_html = "btn btn-default col-xs-2 col-sm-2 col-md-2" %>
+            <%= f.submit "Apply", class: btn_html %>
+            <%= button_tag "Reset", :type => 'reset', class:  btn_html %>
+            <%= button_to "Cancel", @event, class: btn_html %>
         </div>
     </div>
 <% end %>
@@ -15,9 +16,9 @@
     <div class="form-inputs">
         <%= label_tag('Add Attendee') %>
         <%= collection_select(:attendee, :contact_id, Contact.status('Active').order(:last, :first), :id, :full_name) %>
-        <%= collection_select(:attendee, :sponsor_school_id, School.all, :id, :name) %>
+        <%= collection_select(:attendee, :sponsor_school_id, School.all.order(:name), :id, :name, include_blank: true) %>
         <%= label_tag(:paid) %>
         <%= number_field_tag(:paid, :paid)%>
-        <%= submit_tag('Add') %>
+        <%= submit_tag('Add', class: "btn btn-default") %>
     </div>
 <% end %>
