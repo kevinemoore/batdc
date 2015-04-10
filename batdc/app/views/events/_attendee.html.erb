@@ -6,7 +6,7 @@
         <th>Paid</th>
         <% @event.attendees.each do |a| %>
             <tr>
-                <td><%= a.contact.full_name %></td>
+                <td><%= a.contact ? a.contact.full_name : 'Contact Not Found' %></td>
                 <td><%= a.sponsor_school ? a.sponsor_school.name : 'None Specified' %></td>
                 <td><%= a.paid %></td>
                 <% btn_html = "btn btn-default" %>
