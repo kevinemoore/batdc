@@ -14,15 +14,23 @@ class ContactsController < ApplicationController
 
   def create
     authorize! :create, Contact
-    @contact = Contact.create(contact_params)
-    redirect_to @contact
+    if params[:commit] == "Cancel"
+      redirect_to Contact
+    else
+      @contact = Contact.create(contact_params)
+      redirect_to @contact
+    end
   end
 
   def update
-    if @contact.update(contact_params)
+    if params[:commit] == "Cancel"
       redirect_to @contact
     else
-      render 'edit'
+      if @contact.update(contact_params)
+        redirect_to @contact
+      else
+        render 'edit'
+      end
     end
   end
 

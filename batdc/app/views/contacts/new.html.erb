@@ -1,4 +1,7 @@
 <%= form_for @contact, url: {action: "create"} do |f| %>
-<%= render 'contact', :f => f %>
-<%= f.submit "Create" %>
+    <%= render 'contact', :f => f %>
+    <% btn_html = "btn btn-default col-xs-2 col-sm-2 col-md-2" %>
+    <%= f.submit "Create", class: btn_html %>
+    <%= f.submit "Cancel", class: btn_html %>
 <% end %>
+
