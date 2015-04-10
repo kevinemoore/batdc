@@ -24,7 +24,7 @@
     <%= f.number_field :eventbrite_id, class: "col-sm-4" %>
 
     <%= f.label :school, class: "col-sm-2"%>
-    <%= collection_select(:contact, :school_id, School.all, :id, :name, class: "col-sm-4") %>
+    <%= collection_select(:contact, :school_id, School.all.order(:name), :id, :name, include_blank: true, class: "col-sm-4") %>
 </div>
 
 <div class="row">

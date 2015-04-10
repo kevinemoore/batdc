@@ -9,7 +9,7 @@
     <%= f.number_field :eventbrite_id, class: "col-sm-4" %>
 
     <%= f.label :venue, class: "col-sm-1"%>
-    <%= collection_select(:event, :venue, School.all, :name, :name, include_blank: true, class: "col-sm-5") %>
+    <%= collection_select(:event, :venue, School.all.order(:name), :name, :name, include_blank: true, class: "col-sm-5") %>
 </div>
 
 <div class="row">

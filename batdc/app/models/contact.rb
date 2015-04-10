@@ -13,11 +13,17 @@ class Contact < ActiveRecord::Base
     pred += "or first like ? "
     pred += "or role like ? "
     pred += "or title like ?"
-    where(pred, t, t, t, t)
+    pred += "or email_primary like ?"
+    pred += "or email_secondary like ?"
+    where(pred, t, t, t, t, t, t)
   }
   
   scope :at_school, -> (at_school) { where school_id: at_school if
   at_school and at_school.length > 0 }
+
+  def sort_name
+    sn = "#{self.last}, #{self.first}"
+  end
 
   def full_name
     fn = "#{self.first} #{self.last}"
