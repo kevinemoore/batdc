@@ -18,7 +18,7 @@
         
         <% params_str = "?" %>
         <% params_str << search_terms.join('&') %>
-        <%= button_to('Email', email_contacts_path() + params_str, method: :get, class: "btn btn-default col-md-2 col-sm-2 col-xs-2") %>
+        <%= link_to('Email', email_contacts_path() + params_str, method: :get, class: "btn btn-default col-md-2 col-sm-2 col-xs-2") %>
     </div>
 </div>
 
