@@ -2,9 +2,10 @@
     <%= render 'contact', :f => f%>
     <div class="container">
         <div class ="row">
-            <%= f.submit "Apply", class:  "col-sm-2"%>
-            <%= button_tag "Reset", :type => 'reset', class:  "col-sm-2" %>
-            <%= button_to "Cancel", @contact, class:  "col-sm-2" %>
+            <% btn_html = "btn btn-default col-xs-2 col-sm-2 col-md-2" %>
+            <%= f.submit "Apply", class:  btn_html %>
+            <%= button_tag "Reset", :type => 'reset', class: btn_html %>
+            <%= button_to "Cancel", @contact, class: btn_html %>
         </div>
     </div>
 <% end %>

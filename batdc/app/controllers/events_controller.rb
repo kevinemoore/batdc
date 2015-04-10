@@ -32,6 +32,15 @@ class EventsController < ApplicationController
     redirect_to edit_event_path(@event)
   end
   
+  def email    
+  end
+
+  def destroy
+    @event.destroy
+    flash[:notice] = "Deleted Event: #{@event.event_name}"
+    redirect_to Event
+  end
+
   private
   def event_params
     params.require(:event).permit(:eventbrite_id, :event_name,
