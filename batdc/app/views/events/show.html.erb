@@ -56,4 +56,5 @@
 <% btn_html = "btn btn-default col-xs-2 col-sm-2 col-md-2" %>
 <%= button_to('Edit', edit_event_path(@event), method: :get, class: btn_html ) %>
 <%= button_to('Email', email_event_path(@event), method: :get, class: btn_html ) %>
+<%= button_to('Delete', @event, method: :delete, class: btn_html, data: {confirm: 'Confirm?'} ) %>
 
