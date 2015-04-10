@@ -1,5 +1,15 @@
-<% @event.attendees.includes(:contact, :sponsor_school).each do |a| %>
+<% all_addrs = [] %>
+
+<% @event.attendees.includes(:contact).each do |a| %>
     <% if a.contact %>
-        <div><%= a.contact.email_primary %></div>
+        <% all_addrs << a.contact.email_primary %>
     <% end %>
+<% end %>
+
+<% if all_addrs.length <= 100 %>
+    <%= mail_to all_addrs.join(','), 'Send Message' %>
+<% end %>
+
+<% all_addrs.each do |addr| %>
+    <div><%= addr %></div>   
 <% end %>

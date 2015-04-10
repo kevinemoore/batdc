@@ -4,6 +4,15 @@
     <% end %>
 </div>
 
+<% all_addrs = [] %>
 <% @contacts.each do |c| %>    
-    <div><%= c.email_primary %></div>
+    <% all_addrs << c.email_primary %>
+<% end %>
+
+<% if all_addrs.length <= 100 %>
+    <%= mail_to all_addrs.join(','), 'Send Message' %>
+<% end %>
+
+<% all_addrs.each do |a| %>    
+    <div><%= a %></div>
 <% end %>
