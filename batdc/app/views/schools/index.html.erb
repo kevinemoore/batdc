@@ -5,7 +5,7 @@
         <%= select_tag(:region, options_for_select(regions, params[:region]), class: "form-control col-md-4 col-sm-4 col-xs-6", :onchange => "this.form.submit();", :include_blank => true) %>
         <%= label_tag(:members_only, "Member Schools Only") %>
         <%= check_box_tag(:members_only, params[:members_only], params[:members_only], :onchange=>"this.form.submit();") %>
-        <%= submit_tag('Submit', class: "btn btn-default col-xs-2 col-sm-2 col-md-2") %>
+
     <% end %>
 </div>
 
@@ -23,7 +23,8 @@
 </tr>
 <% @schools.each do |s| %>
 <tr>
-<td><%= link_to s.name, s %></td>
+<% name_or_blank = (s.name and s.name.length > 0) ? s.name : 'BLANK'%>
+<td><%= link_to name_or_blank, s %></td>
 <% if s.website %>
     <td><%= link_to 'web', s.website %> </td>
 <% else %>

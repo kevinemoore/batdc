@@ -12,15 +12,23 @@ class EventsController < ApplicationController
 
   def create
     authorize! :create, Event
-    @event = Event.create(event_params)
-    redirect_to @event
+    if params[:commit] == "Cancel"
+      redirect_to Event
+    else
+      @event = Event.create(event_params)
+      redirect_to @event
+    end
   end
 
   def update
-    if @event.update(event_params)
+    if params[:commit] == "Cancel"
       redirect_to @event
     else
-      render 'edit'
+      if @event.update(event_params)
+        redirect_to @event
+      else
+        render 'edit'
+      end
     end
   end
 

@@ -33,15 +33,41 @@ class SchoolsController < ApplicationController
   
   def create
     authorize! :create, School
-    @school = School.create(school_params)
-    redirect_to @school
+    if params[:commit] == "Cancel"
+      redirect_to School
+    else
+      @school = School.create(school_params)
+      redirect_to @school
+    end
   end
 
   def update
-    if @school.update(school_params)
+    if params[:commit] == "Cancel"
       redirect_to @school
     else
-      render 'edit'
+      if @school.update(school_params)
+        redirect_to @school
+      else
+        render 'edit'
+      end
+    end
+  end
+
+  def destroy
+    if @school.contacts.length > 0
+      flash[:alert] = "Remove contacts before deleting:
+    #{@school.name}"
+      redirect_to @school
+    elsif @school.membership_years.length > 0
+      flash[:alert] = "Remove membership before deleting: #{@school.name}"
+      redirect_to @school
+    elsif @school.attendees.length > 0
+      flash[:alert] = "Remove event attendance before deleting: #{@school.name}"
+      redirect_to @school
+    else
+      @school.destroy
+      flash[:notice] = "Deleted School: #{@school.name}"
+      redirect_to School
     end
   end
 

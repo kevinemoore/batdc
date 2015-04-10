@@ -47,6 +47,10 @@ class ContactsController < ApplicationController
       flash[:alert] = "Remove event attendance before deleting:
     #{@contact.full_name}"
       redirect_to @contact
+    elsif @contact.preferred_contact
+      flash[:alert] = "#{@contact.full_name} is a preferred contact at
+    #{@contact.preferred_contact.school.name}"
+      redirect_to @contact
     else
       @contact.destroy
       flash[:notice] = "Deleted Contact: #{@contact.full_name}"
