@@ -22,11 +22,19 @@ class Contact < ActiveRecord::Base
   at_school and at_school.length > 0 }
 
   def sort_name
-    sn = "#{self.last}, #{self.first}"
+    fn = "#{self.first}"
+    fn = 'BLANK' if fn.blank?
+
+    ln = "#{self.last}"
+    ln = 'BLANK' if ln.blank?
+
+    sn = "#{ln}, #{fn}"
   end
 
   def full_name
     fn = "#{self.first} #{self.last}"
+    fn = 'BLANK' if fn.blank?
+    fn
   end
 
   def role_and_name
