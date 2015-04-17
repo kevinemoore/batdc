@@ -10,7 +10,8 @@
 <div class="row">
     <% if @event.eventbrite_id %>
         <div class="col-sm-2 col-xs-4"> Eventbrite </div>
-        <div class="col-sm-2 col-xs-4"><%= link_to @event.eventbrite_id, @event.url %></div>
+        <% dash_url = "https://www.eventbrite.com/myevent?eid=#{@event.eventbrite_id}" %>
+        <div class="col-sm-2 col-xs-4"><%= link_to @event.eventbrite_id, dash_url %></div>
     <% else %>
         <%= link_to 'url', @event.url %>
     <% end %>
