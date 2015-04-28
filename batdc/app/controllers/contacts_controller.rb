@@ -8,6 +8,7 @@ class ContactsController < ApplicationController
     @contacts = @contacts.status('Active')
     @contacts = @contacts.search(params[:search]) if params[:search]
     @contacts = @contacts.at_school(params[:at_school]) if params[:at_school]
+    @contacts = @contacts.role(params[:role]) if params[:role]
     @contacts = @contacts.order(:last, :first)
     
     respond_to do | format |

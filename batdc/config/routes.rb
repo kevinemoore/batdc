@@ -91,6 +91,4 @@ Rails.application.routes.draw do
   resources :preferred_contacts, only: [:destroy]
 
   get 'lists/index' => 'lists#index'
-  get 'lists/head_of_school' => 'lists#head_of_school'
-  get 'lists/head_of_school_email' => 'lists#head_of_school_email'
 end

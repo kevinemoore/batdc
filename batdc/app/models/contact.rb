@@ -16,7 +16,7 @@ class Contact < ActiveRecord::Base
     pred = "last like ? "
     pred += "or first like ? "
     pred += "or role like ? "
-    pred += "or title like ?"
+    pred += "or title like ? "
     pred += "or email_primary like ?"
     pred += "or email_secondary like ?"
     where(pred, t, t, t, t, t, t)
