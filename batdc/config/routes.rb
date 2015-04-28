@@ -89,4 +89,6 @@ Rails.application.routes.draw do
 
   resources :attendees, only: [:destroy]
   resources :preferred_contacts, only: [:destroy]
+
+  get 'lists/index' => 'lists#index'
 end

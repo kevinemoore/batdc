@@ -1,10 +1,14 @@
 
 
 class Contact < ActiveRecord::Base
+  include ActiveModel::Serialization
+
   belongs_to :school
   has_one :preferred_contact
   has_many :attendees
   has_many :events, through: :attendees
+
+  scope :role, -> (role) { where role: role }
 
   scope :status, -> (status) { where status: status }
   scope :search, -> (term) {
@@ -12,7 +16,7 @@ class Contact < ActiveRecord::Base
     pred = "last like ? "
     pred += "or first like ? "
     pred += "or role like ? "
-    pred += "or title like ?"
+    pred += "or title like ? "
     pred += "or email_primary like ?"
     pred += "or email_secondary like ?"
     where(pred, t, t, t, t, t, t)
@@ -42,6 +46,47 @@ class Contact < ActiveRecord::Base
     rn += " - #{role}" if role
     rn
   end
+
+  def email
+    return email_secondary unless email_primary
+    return email_primary
+  end
+
+  def subject
+    return other_subject unless subject_area
+    return subject_area
+  end
+
+  def school_name
+    return school.official_name if school
+    return "NOT SPECIFIED"
+  end
+
+  # def self.as_csv(options={})
+  #   CSV.generate(options) do |csv|
+  #     substitute = {
+  #       school_id: :school
+  #     }
+  #     #csv << column_names
+      
+  #     exp_cols = []
+  #     column_names.each do |c|
+  #       if substitute.has_key? c
+  #         exp_cols << substitute[c]
+  #       else
+  #         exp_cols << c
+  #       end
+  #     end
+      
+  #     csv << exp_cols
+
+  #     all.each do |item|
+  #       col_vals = []
+  #       col_vals << item.attributes.values_at(*column_names)
+  #       csv << col_vals
+  #     end
+  #   end
+  # end
 
   def grade_field_label(f)
     labels = {}

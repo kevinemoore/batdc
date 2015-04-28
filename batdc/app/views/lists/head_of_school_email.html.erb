@@ -1,0 +1,18 @@
+<div class="row">
+    <%= form_tag(email_contacts_path, :method => "get", role: "search", id: "search-form") do %>
+        <%= text_field_tag :search, params[:search], class: "form-control col-md-4 col-sm-4 col-xs-6", placeholder: "Search Contacts" %>
+    <% end %>
+</div>
+
+<% all_addrs = [] %>
+<% @contacts.each do |c| %>    
+    <% all_addrs << c.email_primary %>
+<% end %>
+
+<% if all_addrs.length <= 100 %>
+    <%= mail_to all_addrs.join(','), 'Send Message' %>
+<% end %>
+
+<% all_addrs.each do |a| %>    
+    <div><%= a %></div>
+<% end %>

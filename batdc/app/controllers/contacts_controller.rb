@@ -8,8 +8,19 @@ class ContactsController < ApplicationController
     @contacts = @contacts.status('Active')
     @contacts = @contacts.search(params[:search]) if params[:search]
     @contacts = @contacts.at_school(params[:at_school]) if params[:at_school]
+    @contacts = @contacts.role(params[:role]) if params[:role]
     @contacts = @contacts.order(:last, :first)
-    @contacts = @contacts.paginate(:page => params[:page])
+    
+    respond_to do | format |
+      format.html { @contacts = @contacts.paginate(:page =>
+      params[:page]) }
+      format.csv { render csv: @contacts, filename: 'contacts',
+      each_serializer: ContactSerializer, only: [ :last, :first,
+      :role, :title, :work_phone], add_methods: [:school_name, :email,
+      :subject] } 
+      format.json { render json: @contacts, each_serializer:
+      ContactSerializer }
+    end
   end
 
   def create

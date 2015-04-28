@@ -61,3 +61,6 @@ gem 'simple_form'
 
 # Add Google maps
 gem 'geocoder'
+
+gem 'render_csv'
+gem 'active_model_serializers', '0.9.3'
