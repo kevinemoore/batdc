@@ -7,23 +7,16 @@
 
         <%= button_to('New', new_contact_path(), method: :get, class: "btn btn-default col-md-2 col-sm-2 col-xs-2") %>
 
-        <% search_terms = [] %>
-        <% if params[:search] and params[:search].length > 0 %>
-            <% search_terms << "search=#{params[:search]}" %>
-        <% end %>
-        
-        <% if params[:at_school] %>
-            <% search_terms << "at_school=#{params[:at_school]}" %>
-        <% end %>
-        
-        <% if params[:role] %>
-            <% search_terms << "role=#{params[:role]}" %>
+        <% search_params = {} %>
+        <% scopes = [:search, :at_school, :role] %>
+        <% scopes.each do |s| %>
+            <% if params[s] and not params[s].blank? %>
+                <% search_params[s] = params[s] %>
+            <% end %>
         <% end %>
 
-        <% params_str = "?" %>
-        <% params_str << search_terms.join('&') %>
-        <%= link_to('Email', email_contacts_path() + params_str, method: :get, class: "btn btn-default col-md-2 col-sm-2 col-xs-2") %>
-        <%= link_to('Export', contacts_path(format: :csv) + params_str, method: :get, class: "btn btn-default col-md-2 col-sm-2 col-xs-2") %>
+        <%= link_to('Email', email_contacts_path(search_params), method: :get, class: "btn btn-default col-md-2 col-sm-2 col-xs-2") %>
+        <%= link_to('Export', contacts_path(search_params.merge(format: :csv) ), method: :get, class: "btn btn-default col-md-2 col-sm-2 col-xs-2") %>
     </div>
 </div>
 
