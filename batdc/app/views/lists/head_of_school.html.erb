@@ -1,0 +1,22 @@
+<%= link_to('Email', lists_head_of_school_email_path(), method: :get, class: "btn btn-default col-md-2 col-sm-2 col-xs-2") %>
+<table class="span-12 col-xs-12 col-sm-12 col-md-12">
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Role</th>
+<th>School</th>
+</tr>
+<% @contacts.each do |c| %>
+<% name = c.sort_name %>
+<tr>
+<td><%= link_to name, c %></td>
+<td><%= mail_to c.email_primary %></td>
+<td><%= c.role %></td>
+<% if c.school %>
+    <td><%= link_to c.school.official_name, c.school %></td>
+<% else %>
+    <td> NOT SPECIFIED </td>
+<% end %>
+</tr>
+<% end %>
+</table>
