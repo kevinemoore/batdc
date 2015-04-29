@@ -43,6 +43,17 @@ class EventsController < ApplicationController
   def email    
   end
 
+  def export
+    respond_to do | format |
+      format.csv { render csv: @event.contacts, filename: @event.event_name,
+    each_serializer: ContactSerializer, only: [ :last, :first, :role,
+    :title, :work_phone], add_methods: [:school_name, :email,
+    :subject] }
+      format.json { render json: @event.contacts,
+    each_serializer: ContactSerializer }
+    end
+  end
+
   def destroy
     @event.destroy
     flash[:notice] = "Deleted Event: #{@event.event_name}"

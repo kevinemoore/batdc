@@ -84,6 +84,7 @@ Rails.application.routes.draw do
     member do
       patch :add_attendee
       get :email
+      get :export
     end
   end
 
