@@ -21,6 +21,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user.destroy
+    redirect_to :users
+  end
+
   def authorize
     auth_role = Role.find_by_name(:authorized)
     @user.roles << auth_role unless @user.roles.include? auth_role

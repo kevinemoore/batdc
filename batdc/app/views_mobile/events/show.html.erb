@@ -49,5 +49,6 @@
         <th class="text-right"><%= number_to_currency(@event.attendees.sum(:paid)) %></th>
     </tr>
 </table>
-<%= button_to('Edit', edit_event_path(@event), method: :get) %>
-
+<% btn_html = "btn btn-default col-xs-4 col-sm-2 col-md-2" %>
+<%= button_to('Edit', edit_event_path(@event), method: :get, class: btn_html ) %>
+<%= button_to('Email', email_event_path(@event), method: :get, class: btn_html ) %>
