@@ -43,7 +43,7 @@ class EventsController < ApplicationController
   def email    
   end
 
-  def attendees
+  def export
     respond_to do | format |
       format.csv { render csv: @event.contacts, filename: @event.event_name,
     each_serializer: ContactSerializer, only: [ :last, :first, :role,
