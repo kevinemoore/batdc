@@ -89,6 +89,6 @@
 <% end %>
 </table>
 
-<% btn_html = "btn btn-default col-xs-2 col-sm-2 col-md-2" %>
+<% btn_html = "btn btn-default col-xs-4 col-sm-2 col-md-2" %>
 <%= button_to('Edit', edit_school_path(@school), method: :get, class: btn_html) %>
 <%= button_to('Delete', @school, method: :delete, class: btn_html, data: {confirm: 'Confirm?'} ) %>

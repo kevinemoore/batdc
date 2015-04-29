@@ -10,7 +10,8 @@
 <div class="row">
     <% if @event.eventbrite_id %>
         <div class="col-sm-2 col-xs-4"> Eventbrite </div>
-        <div class="col-sm-2 col-xs-4"><%= link_to @event.eventbrite_id, @event.url %></div>
+        <% dash_url = "https://www.eventbrite.com/myevent?eid=#{@event.eventbrite_id}" %>
+        <div class="col-sm-2 col-xs-4"><%= link_to @event.eventbrite_id, dash_url %></div>
     <% else %>
         <%= link_to 'url', @event.url %>
     <% end %>
@@ -26,29 +27,36 @@
 <h4>Attendees: <%= @event.attendees.count %></h4>
 <table class="col-xs-12 col-sm-12 col-md-12">
     <th>Name</th>
+    <th>Email</th>
     <th>School</th>
     <th>Paid</th>
-    <%  @event.attendees.includes(:contact, :sponsor_school).each do |a| %>
+    <% atts = @event.attendees.includes(:contact, :sponsor_school).sort { |a, b| a.sort_name <=> b.sort_name }%>
+    <% atts.each do |a| %>
         <tr>
             <% if a.contact %>
                 <td> <%= link_to a.contact.full_name, a.contact %> </td>
+                <td> <%= a.contact.email_primary %> </td>
             <% else %>
-                <td> CONTACT NOT FOUND ID: <%= a.contact_id %> </td>
+                <td> CONTACT NOT FOUND </td>
+                <td> ID <%= a.contact_id %> </td>
             <% end %>
             <% if a.sponsor_school %>
                 <td> <%= link_to a.sponsor_school.name, a.sponsor_school %> </td>
             <% else %>
                 <td> NOT SPECIFIED </td>
             <% end %>
-            <td class="text-right"> <%= number_to_currency(a.paid) %> </td>
+            <td> <%= number_to_currency(a.paid) %> </td>
         </tr>
     <% end %>
-    <tr>
+    <tr><td></td>
         <td></td>
         <td></td>
-        <th class="text-right"><%= number_to_currency(@event.attendees.sum(:paid)) %></th>
+        <th><%= number_to_currency(@event.attendees.sum(:paid)) %></th>
     </tr>
 </table>
-<% btn_html = "btn btn-default col-xs-4 col-sm-2 col-md-2" %>
+<% btn_html = "btn btn-default col-xs-2 col-sm-2 col-md-2" %>
 <%= button_to('Edit', edit_event_path(@event), method: :get, class: btn_html ) %>
 <%= button_to('Email', email_event_path(@event), method: :get, class: btn_html ) %>
+<%= button_to('Export', export_event_path(@event, format: :csv), method: :get, class: btn_html ) %>
+<%= button_to('Delete', @event, method: :delete, class: btn_html, data: {confirm: 'Confirm?'} ) %>
+

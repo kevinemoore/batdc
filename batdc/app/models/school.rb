@@ -34,7 +34,7 @@ class School < ActiveRecord::Base
   end
 
   def sent_to_events
-    self.attendees.includes(:contact).includes(:event)
+    self.attendees.includes(:contact).includes(:event).order("contacts.last, contacts.first")
   end
 
 end
