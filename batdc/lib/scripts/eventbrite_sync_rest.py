@@ -33,7 +33,7 @@ def eb_request(path, args={}):
 
     print url_w_args
     r = requests.get(url_w_args)
-    return r.json()
+    return json.loads(r.text.encode('utf8', 'replace'))
 
 def headers():
     h = {"X-Auth-Token" : tori_oauth_token,
@@ -110,7 +110,7 @@ def insert_contact(cursor, c):
                    "VALUES(%s)" % ", ".join(["%s"]*len(fields)), values)
 
 def update_event(cursor, event_id, e):
-    print "Updating Event[%d]: %d\t%s" % (event_id, e['eventbrite_id'], e['event_name'])
+    print "Updating Event[%s]: %s\t%s" % (event_id, e['eventbrite_id'], e['event_name'])
 
     terms = []
     values = []
@@ -130,6 +130,10 @@ def replace_attendee(cursor, a):
     cursor.execute("REPLACE INTO attendees (%s)" % ", ".join(attendee_fields) +
                    "VALUES(%s)" % ", ".join(["%s"]*len(attendee_fields)), values)
 
+def delete_attendee(cursor, contact_id, event_id):
+    print "Deleting Attendance: contact=%s event=%s" % (contact_id, event_id)
+    
+    cursor.execute("DELETE from attendees WHERE contact_id=%s AND event_id=%s" % (contact_id, event_id))    
 
 def find_school_id(cursor, eb_company, eb_email=None):
     # Lookup school
@@ -265,9 +269,11 @@ def main(argv):
         db_data[eb_id] = e
 
     # Find New Events (i.e. not yet in DB)
-    search_params = { 'user.id' : eb_user_id}
+    search_params = { 'status' : 'all' }
         
-    event_list = eb_request("events/search", search_params)['events']
+    #event_list = eb_request("events/search", search_params)['events']
+    event_list = eb_request("users/%s/owned_events/" % eb_user_id, search_params)
+    event_list = event_list['events']
     eb_data = {}
     for event in event_list:        
         eb_id = event['id']
@@ -295,57 +301,101 @@ def main(argv):
 # Sync Attendance Table
 ################################################################################
 
+
+        # First delete cancelled entries
         path = "events/%s/attendees/" % eb_id
-        r = eb_request(path)
-        attendee_list = r['attendees']
-        for attendee in attendee_list:
-            a = {}
+        r = eb_request(path, { "status" : "not_attending" })
+        print "%s - Not Attending:" % e['event_name']
+        non_attendee_list = r['attendees']
+        for attendee in non_attendee_list:
             eb_last = get_value_or_null(attendee['profile'], 'last_name')
             eb_first = get_value_or_null(attendee['profile'], 'first_name')
-            eb_paid = float(attendee['costs']['gross']['value'])/100.0
-            eb_event_id = attendee['event']['id']
             eb_attendee_id = attendee['id']
             eb_email = get_value_or_null(attendee['profile'], 'email')
-            eb_company = get_value_or_null(attendee['profile'], 'company')
 
-            print "%s, %s at %s" % (eb_last, eb_first, eb_company)
-            
             # find contact
             contact_id = find_contact_id(cursor, eb_attendee_id, eb_email, eb_last, eb_first)
+
+            print "Should remove: %s, %s id=%s" % (eb_last, eb_first, contact_id)
+
+            if contact_id:
+                delete_attendee(cursor, contact_id, event_id)
+                cnx.commit()
+        
+        r = eb_request(path, { "status" : "attending"})
+        page_info = r['pagination']
+        count = page_info['object_count']
+        tot_pages = page_info['page_count']
+        cur_page = int(page_info['page_number'])
+        
+        attendee_list = r['attendees']
+        for p in range(1, tot_pages + 1):
+            if p > 1:
+                r = eb_request(path, { "status" : "attending", "page" : p})
+                attendee_list = r['attendees']
+                cur_page = int(r['pagination']['page_number'])
+                assert p==cur_page, "Page mismatch: p=%d, cur_page=%d" % (p, cur_page)
             
-            # find sponsor_school
-            sponsor_school_id = find_school_id(cursor, eb_company, eb_email)
+            for i, attendee in enumerate(attendee_list):
+                c_ids = []
+                a = {}
+                eb_last = get_value_or_null(attendee['profile'], 'last_name')
+                eb_first = get_value_or_null(attendee['profile'], 'first_name')
+                eb_paid = float(attendee['costs']['gross']['value'])/100.0
+                eb_event_id = attendee['event']['id']
+                eb_attendee_id = attendee['id']
+                eb_email = get_value_or_null(attendee['profile'], 'email')
+                eb_company = get_value_or_null(attendee['profile'], 'company')
 
-            # Add to contacts if new and school found
-            if not contact_id:
-                c = {}
-                c['last'] = eb_last
-                c['first'] = eb_first                
-                c['title'] = get_value_or_null(attendee['profile'], 'job_title')
-                c['school_id'] = sponsor_school_id
-                c['eventbrite_id'] = eb_attendee_id
-                c['work_phone'] = get_value_or_null(attendee, 'work_phone')
-                c['email_primary'] = eb_email
-                c['status'] = 'Active'
-                c['updated_at'] = datetime.now()
+                #print "%s, %s at %s" % (eb_last, eb_first, eb_company)
 
-                insert_contact(cursor, c)
+                # find contact
                 contact_id = find_contact_id(cursor, eb_attendee_id, eb_email, eb_last, eb_first)
 
-            if contact_id and not sponsor_school_id:
-                sponsor_school_id = find_contact_school_id(cursor, contact_id)
-                
-            # replace into attendees
-            if contact_id:                
-                a['contact_id'] = contact_id
-                a['event_id'] = event_id
-                a['paid'] = eb_paid
-                a['sponsor_school_id'] = sponsor_school_id
-                a['updated_at'] = datetime.now()
+                # find sponsor_school
+                sponsor_school_id = find_school_id(cursor, eb_company, eb_email)
 
-                replace_attendee(cursor, a)
+                # Add to contacts if new and school found
+                if not contact_id:
+                    c = {}
+                    c['last'] = eb_last
+                    c['first'] = eb_first                
+                    c['title'] = get_value_or_null(attendee['profile'], 'job_title')
+                    c['school_id'] = sponsor_school_id
+                    c['eventbrite_id'] = eb_attendee_id
+                    c['work_phone'] = get_value_or_null(attendee, 'work_phone')
+                    c['email_primary'] = eb_email
+                    c['status'] = 'Active'
+                    c['updated_at'] = datetime.now()
 
-            print "E[%s] %s, %s C[%s]" % (event_id, eb_last, eb_first, contact_id)
+                    insert_contact(cursor, c)
+                    cnx.commit()
+                    contact_id = find_contact_id(cursor, eb_attendee_id, eb_email, eb_last, eb_first)                
+
+                if contact_id and not sponsor_school_id:
+                    sponsor_school_id = find_contact_school_id(cursor, contact_id)
+
+                # replace into attendees
+                if contact_id:                
+                    a['contact_id'] = contact_id
+                    a['event_id'] = event_id
+                    a['paid'] = eb_paid
+                    a['sponsor_school_id'] = sponsor_school_id
+                    a['updated_at'] = datetime.now()
+
+                    replace_attendee(cursor, a)
+                    cnx.commit()
+
+                try:
+                    print "A%d E[%s] C[%s] %s, %s" % (i, event_id, contact_id, eb_last, eb_first)
+                except:
+                    print "A%d E[%s] C[%s]" % (i, event_id, contact_id)
+
+                assert contact_id, "No Contact ID!"
+                if contact_id in c_ids:
+                    print "Duplicate entry for event[%s] contact[%s]" % (event_id, contact_id)
+                else:
+                    c_ids.append(contact_id)
                 
     cnx.commit()
     
