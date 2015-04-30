@@ -269,7 +269,7 @@ def main(argv):
         db_data[eb_id] = e
 
     # Find New Events (i.e. not yet in DB)
-    search_params = { 'status' : 'all' }
+    search_params = { 'status' : 'live' }
         
     #event_list = eb_request("events/search", search_params)['events']
     event_list = eb_request("users/%s/owned_events/" % eb_user_id, search_params)
