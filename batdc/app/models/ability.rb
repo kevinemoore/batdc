@@ -20,6 +20,9 @@ class Ability
 
       # Approved users can delete attendee records
       can [:destroy], Attendee
+
+      # Approved visitors can
+      can [:index, :membership], :lists
     end
   end
 end

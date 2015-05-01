@@ -6,7 +6,7 @@ class ListsController < ApplicationController
   end
 
   def membership
-    authorize! :membership, School
+    authorize! :index, School
     
     @membership_years =
     MembershipYear.joins(:school).select("membership_years.year as
