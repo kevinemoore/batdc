@@ -1,8 +1,13 @@
 
 <div class="row col-xs-12 col-sm-12 col-md-12">
     <%= form_tag(events_path, :method => "get", role: "search", id: "search-form") do %>
-        <%= text_field_tag :search, params[:search], class: "form-control col-md-4 col-sm-4 col-xs-6", placeholder: "Search Events" %>
-        <%= select_tag(:region, options_for_select(['Bay Area','Southern California','Other']), include_blank: true,  :onchange => "this.form.submit();", class: "form-control col-md-4 col-sm-4 col-xs-6") %>
+        <%= text_field_tag :search, params[:search],
+        class: "form-control col-md-4 col-sm-4 col-xs-6",
+            placeholder: "Search Events" %>
+        <%= select_tag(:region,
+                       options_for_select(['Bay Area','Southern California','Other'], params[:region]),
+                       include_blank: true,  :onchange => "this.form.submit();",
+                       class: "form-control col-md-4 col-sm-4 col-xs-6") %>
     <% end %>
 </div>
 

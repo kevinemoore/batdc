@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="row col-xs-12 col-sm-12 col-md-12">
+        <% hidden_scopes = [:role] %>
+        <%= form_tag(contacts_path, :method => "get", role: "search", id: "search-form") do %>
+            <%= text_field_tag :search, params[:search],
+            class: "form-control col-md-12 col-sm-12 col-xs-12", placeholder: "Search Contacts" %>
+            <%= select_tag(:at_school,
+                           options_from_collection_for_select(School.all, :id, :name, params[:at_school]),
+                           class: "form-control col-md-4 col-sm-4 col-xs-6",
+                           :onchange => "this.form.submit();", :include_blank => true) %>
+            <% hidden_scopes.each do |s| %>
+                <% if params[s] and not params[s].blank? %>
+                    <%= hidden_field_tag s, params[s] %>
+                <% end %>
+            <% end %>
+        <% end %>
+
+        <%= button_to('New', new_contact_path(), method: :get, class: "btn btn-default col-md-2 col-sm-2 col-xs-2") %>
+
+        <% all_scopes = [:search, :at_school, :role] %>
+        <% search_params = {} %>
+        <% all_scopes.each do |s| %>
+            <% if params[s] and not params[s].blank? %>
+                <% search_params[s] = params[s] %>
+            <% end %>
+        <% end %>
+
+        <%= link_to('Email', email_contacts_path(search_params), method: :get, class: "btn btn-default col-md-2 col-sm-2 col-xs-2") %>
+        <%= link_to('Export', contacts_path(search_params.merge(format: :csv) ), method: :get, class: "btn btn-default col-md-2 col-sm-2 col-xs-2") %>
+    </div>
+</div>
+
+<table class="span-12 col-xs-12 col-sm-12 col-md-12">
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Role</th>
+<th>School</th>
+</tr>
+<% @contacts.each do |c| %>
+<% name = c.sort_name %>
+<tr>
+<td><%= link_to name, c %></td>
+<td><%= mail_to c.email_primary %></td>
+<td><%= c.role %></td>
+<% if c.school %>
+    <td><%= link_to c.school.official_name, c.school %></td>
+<% else %>
+    <td> NOT SPECIFIED </td>
+<% end %>
+</tr>
+<% end %>
+</table>
+
+<div class="span-12"
+<%= will_paginate @contacts %>
+</div>
