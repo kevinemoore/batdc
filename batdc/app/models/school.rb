@@ -6,6 +6,7 @@ class School < ActiveRecord::Base
   has_many :membership_years
   has_many :attendees, foreign_key: :sponsor_school_id
   has_many :events, through: :attendees
+  has_many :event_venues, :class_name => 'Event', :foreign_key => 'school_id'
 
   after_validation :geocode
   geocoded_by :full_address
