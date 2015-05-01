@@ -6,6 +6,8 @@ class EventsController < ApplicationController
   def index
     @events = Event.all
     @events = @events.search(params[:search]) if params[:search]
+    @events = @events.region(params[:region]) if params[:region] and
+    not params[:region].blank?
     @events = @events.order(start_date: :desc)
     @events = @events.paginate(page: params[:page])
   end
