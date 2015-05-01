@@ -17,6 +17,12 @@
     <% end %>
 </div>
 
+<% if @event.school %>
+    <div class="row">
+        <%= @event.school.official_name %>
+    </div>
+<% end %>
+
 <% if @event.num_sessions %>
     <p> <%= @event.num_sessions %> Sessions </p>
 <% end %>

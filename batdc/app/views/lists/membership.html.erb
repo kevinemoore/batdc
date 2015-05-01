@@ -1,0 +1,33 @@
+<% table = {} %>
+<% 2015.downto(2000).each do |y| %>
+    <% table[y] = {} %>
+<% end %>
+
+<%  @membership_years.each do |m| %>
+    <% table[m.year][m.region] = m.count %>
+<% end %>
+
+<div class="row col-xs-12 col-sm-12 col-md-12">
+    <table class="col-sm-12 col-md-12">
+
+        <tr>
+            <td>Year</td>
+            <td>Total</td>
+            <td>Bay Area</td>
+            <td>Southern California</td>
+            <td>Other</td>
+        </tr>
+
+        <% table.each do |y, h| %>        
+            <% total = 0 %>
+            <% h.each { |r, c| total = total + c } %>
+            <tr>                
+                <td> <%= y %> </td>
+                <td> <%= total %> </td>
+                <td> <%= h['Bay Area'] %> </td>
+                <td> <%= h['Southern California'] %> </td>
+                <td> <%= h['Other'] %> </td>
+            </tr>
+        <% end %>
+    </table>
+</div>

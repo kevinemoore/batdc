@@ -92,4 +92,5 @@ Rails.application.routes.draw do
   resources :preferred_contacts, only: [:destroy]
 
   get 'lists/index' => 'lists#index'
+  get 'lists/membership' => 'lists#membership'
 end
