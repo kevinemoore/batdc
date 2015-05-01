@@ -57,7 +57,7 @@ event_fields = [
     "start_date",
     "end_date",
     "url",
-    "venue",
+    "school_id",
     "description",
     "updated_at"]
 
@@ -139,9 +139,11 @@ def find_school_id(cursor, eb_company, eb_email=None):
     # Lookup school
 
     sponsor_school_id = None
-    cursor.execute("SELECT id FROM schools WHERE name = %s", [eb_company])
+    cursor.execute("SELECT id FROM schools "
+                   "WHERE name = %s "
+                   "or official_name = %s", [eb_company, eb_company])
     for row in cursor:
-        sponson_school_id = row[0]
+        sponsor_school_id = row[0]
 
     # Try Alias Table
     if not sponsor_school_id:
@@ -162,6 +164,7 @@ def find_school_id(cursor, eb_company, eb_email=None):
         for row in cursor:
             sponsor_school_id = row[0]
 
+    print "Find School ID %s - %s" % (eb_company, sponsor_school_id)
     return sponsor_school_id
 
 def find_contact_id(cursor, eb_id, email, last, first):
@@ -234,6 +237,7 @@ def main(argv):
     parser.add_argument('--host', default='localhost', help='database host')
     parser.add_argument('-d', '--database', default='test', help='database name')
     parser.add_argument('-p', '--password', default=None, help='database password')
+    parser.add_argument('-a', '--all', action='store_true', help='update all events')
     args = parser.parse_args(argv)
 
     if args.password:
@@ -269,7 +273,13 @@ def main(argv):
         db_data[eb_id] = e
 
     # Find New Events (i.e. not yet in DB)
-    search_params = { 'status' : 'live' }
+
+    if args.all:
+        search_status = 'all'
+    else:
+        search_status = 'live'
+        
+    search_params = { 'status' : search_status }
         
     #event_list = eb_request("events/search", search_params)['events']
     event_list = eb_request("users/%s/owned_events/" % eb_user_id, search_params)
@@ -284,7 +294,7 @@ def main(argv):
         e['start_date'] = event['start']['local']
         e['end_date'] = event['end']['local']
         e['description'] = event['description']['text']
-        e['venue'] = find_school_id(cursor, event['venue']['name'].encode("utf8").strip())
+        e['school_id'] = find_school_id(cursor, event['venue']['name'].encode("utf8").strip())
         e['url'] = event['url']
         e['updated_at'] = datetime.now()
 
@@ -292,7 +302,8 @@ def main(argv):
 
         if not db_data.has_key(eb_id):
             insert_event(cursor, e)
-        elif db_data[eb_id]['updated_at'] > e['updated_at']:
+        elif args.all or db_data[eb_id]['updated_at'] > e['updated_at']:
+            print e
             update_event(cursor, db_data[eb_id]['id'], e)
 
         event_id = find_event_id(cursor, eb_id)
