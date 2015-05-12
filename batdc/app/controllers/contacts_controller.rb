@@ -76,7 +76,7 @@ class ContactsController < ApplicationController
     params.require(:contact).permit(:last, :first, :title, :role, 
   :eventbrite_id, :school_id, :email_primary, :email_secondary,
   :work_phone, :subject_area, :other_subject, :gPK, :gK, :g01, :g02, :g03,
-  :g04, :g05, :g06, :g07, :g08, :g09, :g10, :g11, :g12, :notes)
+  :g04, :g05, :g06, :g07, :g08, :g09, :g10, :g11, :g12, :notes, :status)
   end
 
 end
