@@ -12,6 +12,27 @@ class ListsController < ApplicationController
     }
   end
 
+  def csv_summary(myears)
+    CSV.generate do |csv|
+      table = {}
+      2015.downto(2000).each do |y|
+        table[y] = {}
+      end
+      
+      myears.each do |m|
+        table[m.year][m.region] = m.count
+      end
+      
+      csv << ['Year', 'Total', 'Bay Area', 'Southern California', 'Other']
+      table.each do |y, h|
+        total = 0
+        h.each { |r, c| total = total + c }
+        csv << [y, total, h['Bay Area'], h['Southern California'],
+                h['Other']]
+      end
+    end
+  end
+
   def membership
     authorize! :index, School
     
@@ -20,6 +41,13 @@ class ListsController < ApplicationController
     year, schools.region, count(*) as
     count").group('membership_years.year, schools.region').order(year:
     :desc)
+
+    respond_to do | format |
+      format.html {}
+      format.csv {
+        send_data csv_summary(@membership_years)
+      }
+    end
   end  
 
 
