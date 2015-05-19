@@ -16,7 +16,7 @@
     <%= f.text_field :title, class: "col-sm-4" %>
 
     <%= f.label :role, class: "col-sm-2"%>
-    <%= f.select :role, ['Not Specified','Academic Dean','Assistant Head of School','Athletic Director','Dean of Faculty','Dean of Students/Student Life','Dean of Community/Inclusion/Diversity','Director of Admissions','Director of Alumni Relations','Director of Communications','Director of Development/Advancement','Director of Teaching and Learning','Director of Technology/Innovation','Head of School','Lower School Division Head','Middle School Division Head','Upper School Division Head','Administrative Assistant','Administrative Assistant to the Head','Admissions Associate','After School and Summer Programs Coordinator','Alumni Relations Associate','Athletic Department Associate','Business Manager','Business Associate','Class/Grade Dean','College Counselor','Communications Associate','Counselor/Psychologist','Development/Advancement Associate','Health/Wellness Coordinator','Learning Specialist','Librarian','Registrar','Service Learning/Community Service Coordinator','Technology/Media Staff','Teacher','Department Chair and Teacher','Teaching Assistant/Intern'], class: "col-sm-4" %>
+    <%= f.collection_select(:role, Function.all, :role, :role, class: "col-sm-4") %>
 </div>
 
 <div class="row">

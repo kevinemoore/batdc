@@ -1,0 +1,32 @@
+<p>
+    <%= link_to('Heads of School', contacts_path(role: "Head of School", at_member: mem), method: :get) %>
+    (<%= link_to('SF', contacts_path(role: "Head of School", in_region: 'Bay Area', at_member: mem), method: :get) %>,
+    <%= link_to('LA', contacts_path(role: "Head of School", in_region: 'Southern California', at_member: mem), method: :get) %>)    
+    <br>
+    
+    <% func_name = 'middle_manager' %>
+    <%= link_to('Middle Managers', contacts_path(is_function: func_name, at_member: mem), method: :get) %>
+    (<%= link_to('SF', contacts_path(is_function: func_name, in_region: 'Bay Area', at_member: mem), method: :get) %>,
+    <%= link_to('LA', contacts_path(is_function: func_name, in_region: 'Southern California', at_member: mem), method: :get) %>)
+    <br>
+    
+    <% func_name = 'academic_middle_manager' %>
+    <%= link_to('Academic Middle Managers', contacts_path(is_function: func_name, at_member: mem), method: :get) %>
+    (<%= link_to('SF', contacts_path(is_function: func_name, in_region: 'Bay Area', at_member: mem), method: :get) %>,
+    <%= link_to('LA', contacts_path(is_function: func_name, in_region: 'Southern California', at_member: mem), method: :get) %>)
+</p>
+
+<p>
+    <% @teacher_lists.each do |title, grades| %>
+        <%= link_to(title, contacts_path(teaches: grades, at_member: mem), method: :get) %>
+        (<%= link_to('SF', contacts_path(teaches: grades, in_region: 'Bay Area', at_member: mem), method: :get) %>,
+        <%= link_to('LA', contacts_path(teaches: grades, in_region: 'Southern California', at_member: mem), method: :get) %>)
+        <br>
+    <% end %>
+</p>
+
+<p>    
+    <%= link_to('Preferred Contacts', contacts_path(is_preferred: true, at_member: mem), method: :get) %>
+    (<%= link_to('SF', contacts_path(is_preferred: true, in_region: 'Bay Area', at_member: mem), method: :get) %>,
+    <%= link_to('LA', contacts_path(is_preferred: true, in_region: 'Southern California', at_member: mem), method: :get) %>)
+</p>

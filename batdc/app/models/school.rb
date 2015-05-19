@@ -17,7 +17,20 @@ class School < ActiveRecord::Base
     pred += "or official_name like ? "
     where(pred, t, t)
   }
+
   scope :region, -> (region) { where(region: region) }
+
+  scope :member_in, -> (year) {
+    where id: MembershipYear.in_year(year).select(:school_id)
+  }
+  
+  scope :current_member, -> {
+    where id: MembershipYear.current.select(:school_id)
+  }
+
+  scope :non_member, -> {
+    where.not id: MembershipYear.current.select(:school_id)
+  }
 
   def full_address(commas=true)
     addr = "#{address1} #{address2}, #{city}, #{state}"

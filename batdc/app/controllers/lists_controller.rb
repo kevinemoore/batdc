@@ -3,6 +3,13 @@ class ListsController < ApplicationController
 
   def index
     authorize! :index, Contact
+
+    @teacher_lists = { 
+      'Teaches K-3' =>  ['gk', 'g01', 'g02', 'g03'],
+      'Teaches 4-6' =>  ['g04', 'g05', 'g06'],
+      'Teaches 6-8' =>  ['g06', 'g07', 'g08'],
+      'Teaches 9-12' =>  ['g09', 'g10', 'g11', 'g12'],
+    }
   end
 
   def membership
