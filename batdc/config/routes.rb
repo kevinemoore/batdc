@@ -57,7 +57,7 @@ Rails.application.routes.draw do
   #   end
   
   devise_scope :user do
-    root to: 'schools#index'    
+    root to: 'lists#index'    
     get 'access_denied' => 'users/registrations#access_denied', as: :access_denied
   end
 
