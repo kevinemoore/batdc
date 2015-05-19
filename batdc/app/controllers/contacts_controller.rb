@@ -4,11 +4,23 @@ class ContactsController < ApplicationController
   before_filter :check_for_mobile, :only => [:index]
 
   def index
-    @contacts = Contact.all
+    if not params.has_key? :at_member
+      @contacts = Contact.all
+    elsif params[:at_member]
+      @contacts = @contacts.at_member
+    else
+      @contacts = @contacts.at_member
+    end
+
     @contacts = @contacts.status('Active')
     @contacts = @contacts.search(params[:search]) if params[:search]
+    @contacts = @contacts.in_region(params[:in_region]) if params[:in_region]
     @contacts = @contacts.at_school(params[:at_school]) if params[:at_school]
+    @contacts = @contacts.is_function(params[:is_function]) if
+    params[:is_function] 
     @contacts = @contacts.role(params[:role]) if params[:role]
+    @contacts = @contacts.teaches(params[:teaches]) if params[:teaches]
+    @contacts = @contacts.is_preferred if params[:is_preferred]
     @contacts = @contacts.order(:last, :first)
     
     respond_to do | format |

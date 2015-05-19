@@ -23,7 +23,30 @@ class Contact < ActiveRecord::Base
   }
   
   scope :at_school, -> (at_school) { where school_id: at_school if
-  at_school and at_school.length > 0 }
+    at_school and at_school.length > 0 }
+  
+  scope :in_region, -> (region) {
+    where school: School.region(region)
+  }
+
+  scope :at_member, -> {
+    where school: School.current_member
+  }
+  
+  scope :is_function, -> (function) { where role:
+    Function.roles_by_function(function) }  
+
+  scope :teaches, -> (grades) { 
+    terms = []
+    grades.each do |g|
+      terms << "#{g} is true"
+    end
+    where( terms.join(" or ") )
+  }
+
+  scope :is_preferred, -> {
+    where id: PreferredContact.select(:contact_id)
+  }
 
   def sort_name
     fn = "#{self.first}"

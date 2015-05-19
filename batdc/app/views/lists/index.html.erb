@@ -1,7 +1,19 @@
 <p>
-    <%= link_to('Heads of School', contacts_path(role: "Head of School"), method: :get) %>
+    <h3> Member Schools </h3>
+    <%= render 'lists', mem: true %>
 </p>
 
 <p>
+    <h3> Non-Member Schools </h3>
+    <%= render 'lists', mem: true %>
+</p>
+
+<p>
+    <h3> All Schools </h3>
+    <%= render 'lists', mem: nil %>
+</p>
+
+<p>
+    <h3> Membership </h3>
     <%= link_to('Membership Summary', lists_membership_path(), method: :get) %>
 </p>

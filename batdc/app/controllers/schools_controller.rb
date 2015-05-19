@@ -6,7 +6,6 @@ class SchoolsController < ApplicationController
   def index
     if params[:members_only] 
       @schools = School.joins(:membership_years).where('membership_years.year' => 2015)
-      #@schools = School.all.merge(MembershipYear.in_year(2015))
     else
       @schools = School.all
     end

@@ -1,9 +1,16 @@
 <div class="container">
     <div class="row col-xs-12 col-sm-12 col-md-12">
-        <% hidden_scopes = [:role] %>
+        <% hidden_scopes = [:role, :is_function, :teaches, :is_preferred] %>
         <%= form_tag(contacts_path, :method => "get", role: "search", id: "search-form") do %>
             <%= text_field_tag :search, params[:search], class: "form-control col-md-12 col-sm-12 col-xs-12", placeholder: "Search Contacts" %>
-            <%= select_tag(:at_school, options_from_collection_for_select(School.all, :id, :name, params[:at_school]), class: "form-control col-md-4 col-sm-4 col-xs-6", :onchange => "this.form.submit();", :include_blank => true) %>
+            <% regions = ['Bay Area', 'Southern California', 'Other']%>
+            <%= select_tag(:in_region, options_for_select(regions, params[:in_region]), class: "form-control", :onchange => "this.form.submit();", :include_blank => true) %>
+            <% if params[:in_region] %>
+                <%= select_tag(:at_school, options_from_collection_for_select(School.region(params[:in_region]), :id, :name, params[:at_school]), class: "form-control", :onchange => "this.form.submit();", :include_blank => true) %>
+            <% else %>
+                <%= select_tag(:at_school, options_from_collection_for_select(School.all, :id, :name, params[:at_school]), class: "form-control", :onchange => "this.form.submit();", :include_blank => true) %>
+            <% end %>
+
             <% hidden_scopes.each do |s| %>
                 <% if params[s] and not params[s].blank? %>
                     <%= hidden_field_tag s, params[s] %>
@@ -13,7 +20,7 @@
 
         <%= button_to('New', new_contact_path(), method: :get, class: "btn btn-default col-md-2 col-sm-2 col-xs-2") %>
 
-        <% all_scopes = [:search, :at_school, :role] %>
+        <% all_scopes = [:search, :at_school, :role, :in_region] %>
         <% search_params = {} %>
         <% all_scopes.each do |s| %>
             <% if params[s] and not params[s].blank? %>
