@@ -30,6 +30,12 @@ class Event < ActiveRecord::Base
   end
   
   def region
-    school.region
+    return "" unless school
+    abbrev = {
+      'Bay Area' => 'SF',
+      'Southern California' => 'LA',
+      'Other' => 'Other'
+    }
+    school.region ? abbrev[school.region] : ""
   end
 end
