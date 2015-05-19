@@ -20,7 +20,7 @@ class EventsController < ApplicationController
         render csv: @events, filename: 'events',
         each_serializer: EventSerializer, only: [:event_name,
         :start_date, :end_date, :school, :url],
-        add_methods: [:attendance, :schools_participating]
+        add_methods: [:attendance, :schools_participating, :region]
       }
     end
   end

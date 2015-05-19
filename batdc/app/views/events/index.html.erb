@@ -11,7 +11,16 @@
     <% end %>
 </div>
 
+<% all_scopes = [:search, :region, :fiscal_year] %>
+<% search_params = {} %>
+<% all_scopes.each do |s| %>
+    <% if params[s] and not params[s].blank? %>
+        <% search_params[s] = params[s] %>
+    <% end %>
+<% end %>
+
 <%= button_to('New', new_event_path, method: :get, class: "btn btn-default col-md-2 col-sm-2 col-xs-2") %>
+<%= link_to('Export', events_path(search_params.merge(format: :csv)), class: "btn btn-default col-md-2 col-sm-2 col-xs-2") %>
 
 <table class="col-xs-12 col-sm-12 col-md-12">
     <tr>

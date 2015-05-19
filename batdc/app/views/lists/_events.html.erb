@@ -1,4 +1,4 @@
 
-<%= link_to("Events FY #{fy}", events_path(format: :csv, fiscal_year: fy)) %>
-(<%= link_to('SF', events_path(format: :csv, fiscal_year: fy, region: 'Bay Area')) %>,
-<%= link_to('LA', events_path(format: :csv, fiscal_year: fy, region: 'Southern California')) %>)
+<%= link_to("Events FY #{fy}", events_path(fiscal_year: fy)) %>
+(<%= link_to('SF', events_path(fiscal_year: fy, region: 'Bay Area')) %>,
+<%= link_to('LA', events_path(fiscal_year: fy, region: 'Southern California')) %>)

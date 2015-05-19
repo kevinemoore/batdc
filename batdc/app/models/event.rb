@@ -29,4 +29,7 @@ class Event < ActiveRecord::Base
     attendees.select(:sponsor_school_id).uniq.count
   end
   
+  def region
+    school.region
+  end
 end
