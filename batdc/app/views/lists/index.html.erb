@@ -14,7 +14,15 @@
 </p>
 
 <p>
-    <h3> Membership </h3>
-    <%= link_to('Membership Summary', lists_membership_path(), method: :get) %>
-    (<%= link_to('CSV', lists_membership_path(format: :csv), method: :get) %>)
+    <h3> Financial Summaries </h3>
+    <%= link_to('Membership Summary', lists_membership_path()) %>
+    (<%= link_to('CSV', lists_membership_path(format: :csv)) %>)
+    <br>
+    <%= render 'events', fy: 2016 %>
+    <br>
+    <%= render 'events', fy: 2015 %>
+    <br>
+    <%= render 'events', fy: 2014 %>
+    <br>
+    <%= render 'events', fy: 2013 %>
 </p>

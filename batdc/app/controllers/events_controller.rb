@@ -5,11 +5,24 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.all
+    @events = @events.in_fiscal_year(params[:fiscal_year]) if params[:fiscal_year]
     @events = @events.search(params[:search]) if params[:search]
     @events = @events.region(params[:region]) if params[:region] and
     not params[:region].blank?
     @events = @events.order(start_date: :desc)
-    @events = @events.paginate(page: params[:page])
+
+    respond_to do | format |
+      format.html {
+        @events = @events.paginate(page: params[:page])
+      }
+
+      format.csv {
+        render csv: @events, filename: 'events',
+        each_serializer: EventSerializer, only: [:event_name,
+        :start_date, :end_date, :school, :url],
+        add_methods: [:attendance, :schools_participating]
+      }
+    end
   end
 
   def create
