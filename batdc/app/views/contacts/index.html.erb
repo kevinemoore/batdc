@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row col-xs-12 col-sm-12 col-md-12">
-        <% hidden_scopes = [:role, :is_function, :teaches, :is_preferred] %>
+        <% hidden_scopes = [:role, :is_function, :teaches, :is_preferred, :at_member] %>
         <%= form_tag(contacts_path, :method => "get", role: "search", id: "search-form") do %>
             <%= text_field_tag :search, params[:search], class: "form-control col-md-12 col-sm-12 col-xs-12", placeholder: "Search Contacts" %>
             <% regions = ['Bay Area', 'Southern California', 'Other']%>
@@ -12,7 +12,7 @@
             <% end %>
 
             <% hidden_scopes.each do |s| %>
-                <% if params[s] and not params[s].blank? %>
+                <% if not params[s].blank? %>
                     <%= hidden_field_tag s, params[s] %>
                 <% end %>
             <% end %>
@@ -20,7 +20,7 @@
 
         <%= button_to('New', new_contact_path(), method: :get, class: "btn btn-default col-md-2 col-sm-2 col-xs-2") %>
 
-        <% all_scopes = [:search, :at_school, :role, :in_region] %>
+        <% all_scopes = hidden_scopes + [:search, :at_school, :in_region] %>
         <% search_params = {} %>
         <% all_scopes.each do |s| %>
             <% if params[s] and not params[s].blank? %>
