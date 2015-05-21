@@ -58,12 +58,23 @@ class ContactsController < ApplicationController
   end
 
   def email
-    @contacts = Contact.all
+     if not params.has_key? :at_member
+      @contacts = Contact.all
+    elsif params[:at_member]
+      @contacts = @contacts.at_member
+    else
+      @contacts = @contacts.at_member
+    end
+
     @contacts = @contacts.status('Active')
-    @contacts = @contacts.search(params[:search]) if params[:search]
-    @contacts = @contacts.at_school(params[:at_school]) if
-    params[:at_school]
-    @contacts = @contacts.role(params[:role]) if params[:role]
+    @contacts = @contacts.search(params[:search]) unless params[:search].blank?
+    @contacts = @contacts.in_region(params[:in_region]) unless params[:in_region].blank?
+    @contacts = @contacts.at_school(params[:at_school]) unless params[:at_school].blank?
+    @contacts = @contacts.is_function(params[:is_function]) unless
+    params[:is_function].blank? 
+    @contacts = @contacts.role(params[:role]) unless params[:role].blank?
+    @contacts = @contacts.teaches(params[:teaches]) unless params[:teaches].blank?
+    @contacts = @contacts.is_preferred unless params[:is_preferred].blank?
     @contacts = @contacts.order(:last, :first)
   end
 
