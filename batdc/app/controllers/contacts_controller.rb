@@ -13,14 +13,14 @@ class ContactsController < ApplicationController
     end
 
     @contacts = @contacts.status('Active')
-    @contacts = @contacts.search(params[:search]) if params[:search]
-    @contacts = @contacts.in_region(params[:in_region]) if params[:in_region]
-    @contacts = @contacts.at_school(params[:at_school]) if params[:at_school]
-    @contacts = @contacts.is_function(params[:is_function]) if
-    params[:is_function] 
-    @contacts = @contacts.role(params[:role]) if params[:role]
-    @contacts = @contacts.teaches(params[:teaches]) if params[:teaches]
-    @contacts = @contacts.is_preferred if params[:is_preferred]
+    @contacts = @contacts.search(params[:search]) unless params[:search].blank?
+    @contacts = @contacts.in_region(params[:in_region]) unless params[:in_region].blank?
+    @contacts = @contacts.at_school(params[:at_school]) unless params[:at_school].blank?
+    @contacts = @contacts.is_function(params[:is_function]) unless
+    params[:is_function].blank? 
+    @contacts = @contacts.role(params[:role]) unless params[:role].blank?
+    @contacts = @contacts.teaches(params[:teaches]) unless params[:teaches].blank?
+    @contacts = @contacts.is_preferred unless params[:is_preferred].blank?
     @contacts = @contacts.order(:last, :first)
     
     respond_to do | format |

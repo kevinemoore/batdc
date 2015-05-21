@@ -5,10 +5,9 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.all
-    @events = @events.in_fiscal_year(params[:fiscal_year]) if params[:fiscal_year]
-    @events = @events.search(params[:search]) if params[:search]
-    @events = @events.region(params[:region]) if params[:region] and
-    not params[:region].blank?
+    @events = @events.in_fiscal_year(params[:fiscal_year]) unless params[:fiscal_year].blank?
+    @events = @events.search(params[:search]) unless params[:search].blank?
+    @events = @events.region(params[:region]) unless params[:region].blank?
     @events = @events.order(start_date: :desc)
 
     respond_to do | format |

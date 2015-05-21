@@ -10,14 +10,8 @@ class SchoolsController < ApplicationController
       @schools = School.all
     end
 
-    if params[:search] and params[:search].length > 0
-      @schools = @schools.search(params[:search]) 
-    end
-
-    if params[:region] and params[:region].length > 0
-      @schools = @schools.region(params[:region])
-    end
-
+    @schools = @schools.search(params[:search]) unless params[:search].blank?     
+    @schools = @schools.region(params[:region]) unless params[:region].blank?
     @schools = @schools.order(:name)
     @schools = @schools.paginate(page: params[:page])
   end
