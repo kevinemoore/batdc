@@ -20,7 +20,9 @@ class ContactsController < ApplicationController
     params[:is_function].blank? 
     @contacts = @contacts.role(params[:role]) unless params[:role].blank?
     @contacts = @contacts.teaches(params[:teaches]) unless params[:teaches].blank?
-    @contacts = @contacts.is_preferred unless params[:is_preferred].blank?
+    @contacts = @contacts.is_preferred unless
+    params[:is_preferred].blank?
+    @contacts = @contacts.subject(params[:subject]) unless params[:subject].blank?
     @contacts = @contacts.order(:last, :first)
     
     respond_to do | format |
