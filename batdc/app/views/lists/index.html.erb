@@ -26,3 +26,19 @@
     <br>
     <%= render 'events', fy: 2013 %>
 </p>
+
+<h3> Subject Area </h3>
+<p>
+  <% @subjects_list.each do |subject| %>
+    <% comma = false %>
+    <%= link_to(subject, contacts_path(subject: subject), method: :get) %>
+    (
+    <% @teacher_lists.each do |title, grades| %>
+      <%= ', ' if comma %>
+      <%= link_to(title, contacts_path(teaches: grades, subject: subject), method: :get)%>
+      <% comma = true %>
+    <% end %>
+    )
+    <br>
+  <% end %>
+</p>

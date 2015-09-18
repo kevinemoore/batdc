@@ -294,7 +294,11 @@ def main(argv):
         e['start_date'] = event['start']['local']
         e['end_date'] = event['end']['local']
         e['description'] = event['description']['text']
-        e['school_id'] = find_school_id(cursor, event['venue']['name'].encode("utf8").strip())
+        try:
+            e['school_id'] = find_school_id(cursor, event['venue']['name'].encode("utf8").strip())
+        except:
+            print "Can't find venue for event %s" % e['event_name']
+            pass
         e['url'] = event['url']
         e['updated_at'] = datetime.now()
 
@@ -353,7 +357,7 @@ def main(argv):
                 eb_last = get_value_or_null(attendee['profile'], 'last_name')
                 eb_first = get_value_or_null(attendee['profile'], 'first_name')
                 eb_paid = float(attendee['costs']['gross']['value'])/100.0
-                eb_event_id = attendee['event']['id']
+                eb_event_id = attendee['event_id']
                 eb_attendee_id = attendee['id']
                 eb_email = get_value_or_null(attendee['profile'], 'email')
                 eb_company = get_value_or_null(attendee['profile'], 'company')

@@ -11,6 +11,7 @@ class Contact < ActiveRecord::Base
   scope :role, -> (role) { where role: role }
 
   scope :status, -> (status) { where status: status }
+  scope :subject, -> (subject) { where subject_area: subject }
   scope :search, -> (term) {
     t = "%#{term}%"
     pred = "last like ? "
@@ -18,8 +19,9 @@ class Contact < ActiveRecord::Base
     pred += "or role like ? "
     pred += "or title like ? "
     pred += "or email_primary like ?"
-    pred += "or email_secondary like ?"
-    where(pred, t, t, t, t, t, t)
+    pred += "or email_secondary like ? "
+    pred += "or subject_area like ? "
+    where(pred, t, t, t, t, t, t, t)
   }
   
   scope :at_school, -> (at_school) { where school_id: at_school if

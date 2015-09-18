@@ -10,6 +10,24 @@ class ListsController < ApplicationController
       'Teaches 6-8' =>  ['g06', 'g07', 'g08'],
       'Teaches 9-12' =>  ['g09', 'g10', 'g11', 'g12'],
     }
+
+    @subjects_list = 
+      ['Not Specified',
+       'Administration',
+       'English',
+       'Foreign Language',
+       'Generalist',
+       'History/Social Studies',
+       'Humanities',
+       'Math','Music',
+       'Performing Arts',
+       'Physical Education',
+       'Science',
+       'Technology',
+       'Theology',
+       'Visual Arts',
+       'Other']
+
   end
 
   def csv_summary(myears)
