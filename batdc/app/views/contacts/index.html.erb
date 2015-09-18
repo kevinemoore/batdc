@@ -17,8 +17,10 @@
                 <% end %>
             <% end %>
 
-            <% params[:teaches].each do |g| %>
-              <%= hidden_field_tag 'teaches[]', g %>
+            <% if params[:teaches] %>
+              <% params[:teaches].each do |g| %>
+                <%= hidden_field_tag 'teaches[]', g %>
+              <% end %>
             <% end %>
         <% end %>
 
