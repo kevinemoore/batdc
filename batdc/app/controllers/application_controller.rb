@@ -37,9 +37,6 @@ class ApplicationController < ActionController::Base
   
   def prepare_for_mobile
     prepend_view_path Rails.root + 'app' + 'views_mobile'
-
-    # show only active contacts on mobile devices
-    params[:active_only] = true
     params[:mobile] = true
   end
 end
