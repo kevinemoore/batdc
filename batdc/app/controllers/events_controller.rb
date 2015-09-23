@@ -12,7 +12,7 @@ class EventsController < ApplicationController
 
     respond_to do | format |
       format.html {
-        @events = @events.paginate(page: params[:page])
+        @events = @events.paginate(page: params[:page]) unless params[:mobile]
       }
 
       format.csv {
