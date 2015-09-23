@@ -13,7 +13,7 @@ class SchoolsController < ApplicationController
     @schools = @schools.search(params[:search]) unless params[:search].blank?     
     @schools = @schools.region(params[:region]) unless params[:region].blank?
     @schools = @schools.order(:name)
-    @schools = @schools.paginate(page: params[:page])
+    @schools = @schools.paginate(page: params[:page]) unless params[:mobile]
   end
 
   def show

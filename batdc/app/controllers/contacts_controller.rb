@@ -4,15 +4,15 @@ class ContactsController < ApplicationController
   before_filter :check_for_mobile, :only => [:index]
 
   def index
-    if not params.has_key? :at_member
+    if params[:at_member].blank?
       @contacts = Contact.all
-    elsif params[:at_member]
-      @contacts = @contacts.at_member
+    elsif params[:at_member] == "false"
+      @contacts = @contacts.at_non_member
     else
       @contacts = @contacts.at_member
     end
 
-    @contacts = @contacts.status('Active')
+    @contacts = @contacts.status('Active') if params[:active_only]
     @contacts = @contacts.search(params[:search]) unless params[:search].blank?
     @contacts = @contacts.in_region(params[:in_region]) unless params[:in_region].blank?
     @contacts = @contacts.at_school(params[:at_school]) unless params[:at_school].blank?
@@ -27,7 +27,7 @@ class ContactsController < ApplicationController
     
     respond_to do | format |
       format.html { @contacts = @contacts.paginate(:page =>
-      params[:page]) }
+      params[:page]) unless params[:mobile] }
       format.csv { render csv: @contacts, filename: 'contacts',
       each_serializer: ContactSerializer, only: [ :last, :first,
       :role, :title, :work_phone], add_methods: [:school_name, :email,

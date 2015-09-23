@@ -1,17 +1,19 @@
 <h4> Preferred Contacts: </h4>
 <table class="col-xs-12 col-sm-12 col-md-12">
     <% @school.preferred_contacts.each do |pc| %>
+      <% if pc.contact %>
         <tr>
-            <td><%= link_to pc.contact.full_name, pc.contact %></td>
-            <td><%= pc.contact.role %></td>
-            <td><%= pc.contact.work_phone %></td>
-            <td><%= pc.contact.email_primary %></td>
-            <% if :editing %>
-                <td>
-                    <%= button_to 'Delete', pc, method: :delete, data: {confirm: "Confirm?"} %>
-                </td>         
-            <% end %>
+          <td><%= link_to pc.contact.full_name, pc.contact %></td>
+          <td><%= pc.contact.role %></td>
+          <td><%= pc.contact.work_phone %></td>
+          <td><%= pc.contact.email_primary %></td>
+          <% if :editing %>
+            <td>
+              <%= button_to 'Delete', pc, method: :delete, data: {confirm: "Confirm?"} %>
+            </td>         
+          <% end %>
         </tr>
-    <% end  %>
+      <% end %>
+    <% end %>
 </table>
 

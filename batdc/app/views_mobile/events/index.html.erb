@@ -5,7 +5,7 @@
     <% end %>
 </div>
 
-<%= button_to('New', new_event_path, method: :get) %>
+<%= button_to('New', new_event_path, method: :get, class: "btn btn-default") %>
 
 <table class="col-xs-12 col-sm-12 col-md-12">
 <% @events.each do |e| %>
@@ -16,6 +16,3 @@
 <% end %>
 </table>
 
-<div class ="row col-xs-12 col-sm-12 col-md-12">
-    <%= will_paginate @events %>
-</div>

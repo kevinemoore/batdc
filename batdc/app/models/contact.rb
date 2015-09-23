@@ -34,6 +34,10 @@ class Contact < ActiveRecord::Base
   scope :at_member, -> {
     where school: School.current_member
   }
+
+  scope :at_non_member, -> {
+    where school: School.non_member
+  }
   
   scope :is_function, -> (function) { where role:
     Function.roles_by_function(function) }  
