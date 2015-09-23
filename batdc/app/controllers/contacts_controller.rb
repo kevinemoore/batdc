@@ -4,10 +4,10 @@ class ContactsController < ApplicationController
   before_filter :check_for_mobile, :only => [:index]
 
   def index
-    if not params.has_key? :at_member
+    if params[:at_member].blank?
       @contacts = Contact.all
-    elsif params[:at_member]
-      @contacts = @contacts.at_member
+    elsif params[:at_member] == "false"
+      @contacts = @contacts.at_non_member
     else
       @contacts = @contacts.at_member
     end
