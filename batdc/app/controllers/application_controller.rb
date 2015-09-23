@@ -40,5 +40,7 @@ class ApplicationController < ActionController::Base
 
     # reduce per-page for mobile devices
     WillPaginate.per_page = 10
+    params[:active_only] = true
+    params[:mobile] = true
   end
 end

@@ -27,7 +27,7 @@ class ContactsController < ApplicationController
     
     respond_to do | format |
       format.html { @contacts = @contacts.paginate(:page =>
-      params[:page]) }
+      params[:page]) unless params[:mobile] }
       format.csv { render csv: @contacts, filename: 'contacts',
       each_serializer: ContactSerializer, only: [ :last, :first,
       :role, :title, :work_phone], add_methods: [:school_name, :email,
