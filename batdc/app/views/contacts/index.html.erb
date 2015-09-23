@@ -11,12 +11,15 @@
         <%= select_tag(:in_region, options_for_select(regions, params[:in_region]), class: "form-control", :onchange => "this.form.submit();", :include_blank => true) %>
         <span class="input-group-addon" id="sizing-addon1">Region</span>
       </div>
-      <% if params[:in_region] %>
-        <%= select_tag(:at_school, options_from_collection_for_select(School.region(params[:in_region]), :id, :name, params[:at_school]), class: "form-control", :onchange => "this.form.submit();", :include_blank => true) %>
-      <% else %>
-        <%= select_tag(:at_school, options_from_collection_for_select(School.all, :id, :name, params[:at_school]), class: "form-control", :onchange => "this.form.submit();", :include_blank => true) %>
-      <% end %>
-      <%= text_field_tag :search, params[:search], class: "form-control col-md-12 col-sm-12 col-xs-12", placeholder: "Search Contacts" %>
+      <div class="input-group">
+        <% if not params[:in_region].blank? %>
+          <%= select_tag(:at_school, options_from_collection_for_select(School.region(params[:in_region]), :id, :name, params[:at_school]), class: "form-control", :onchange => "this.form.submit();", :include_blank => true) %>
+        <% else %>
+          <%= select_tag(:at_school, options_from_collection_for_select(School.all, :id, :name, params[:at_school]), class: "form-control", :onchange => "this.form.submit();", :include_blank => true) %>
+        <% end %>
+        <span class="input-group-addon" id="school-addon1">School</span>
+      </div>
+      <%= search_field_tag :search, params[:search], class: "form-control hasclear col-md-12 col-sm-12 col-xs-12", placeholder: "Search Contacts" %>
 
       <% hidden_scopes.each do |s| %>
         <% if not params[s].blank? %>
