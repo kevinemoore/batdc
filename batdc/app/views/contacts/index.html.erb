@@ -1,10 +1,11 @@
 <div class="container">
   <div class="row col-xs-12 col-sm-12 col-md-12">
-    <% hidden_scopes = [:role, :is_function, :is_preferred, :at_member, :subject, :status] %>
+    <% hidden_scopes = [:role, :is_function, :is_preferred, :at_member, :subject] %>
     <%= form_tag(contacts_path, :method => "get", role: "search", id: "search-form") do %>
       <div class="input-group">
-        <span class="input-group-addon" id="status">Active
-          <input type="checkbox" aria-label="Active">
+        <span class="input-group-addon" id="status">
+          <%= label_tag(:status, "Active") %>
+          <%= check_box_tag(:active_only, params[:active_only], params[:active_only], disabled: false, :onchange=>"this.form.submit();") %>
         </span>
         <% regions = ['Bay Area', 'Southern California', 'Other']%>
         <%= select_tag(:in_region, options_for_select(regions, params[:in_region]), class: "form-control", :onchange => "this.form.submit();", :include_blank => true) %>

@@ -12,7 +12,7 @@ class ContactsController < ApplicationController
       @contacts = @contacts.at_member
     end
 
-    @contacts = @contacts.status(params[:status]) unless params[:status].blank?
+    @contacts = @contacts.status('Active') if params[:active_only]
     @contacts = @contacts.search(params[:search]) unless params[:search].blank?
     @contacts = @contacts.in_region(params[:in_region]) unless params[:in_region].blank?
     @contacts = @contacts.at_school(params[:at_school]) unless params[:at_school].blank?
