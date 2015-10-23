@@ -33,7 +33,8 @@ class ListsController < ApplicationController
   def csv_summary(myears)
     CSV.generate do |csv|
       table = {}
-      2015.downto(2000).each do |y|
+      start_year = Time.now.year + 1
+      start_year.downto(2000).each do |y|
         table[y] = {}
       end
       
