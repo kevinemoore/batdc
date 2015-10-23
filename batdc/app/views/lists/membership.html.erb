@@ -1,5 +1,6 @@
 <% table = {} %>
-<% 2025.downto(2000).each do |y| %>
+<% start_year = Time.now.year + 1 %>
+<% start_year.downto(2000).each do |y| %>
     <% table[y] = {} %>
 <% end %>
 
